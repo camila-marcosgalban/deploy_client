@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { register } from "../../Actions/constants";
 export function useForm(initialForm, validation) {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialForm);
@@ -27,7 +28,7 @@ export function useForm(initialForm, validation) {
 		console.log(formData);
 
 		axios
-			.post("http://localhost:3001/api/users/register", formData)
+			.post(register, formData)
 			.then((response) => {
 				//setLoading(false);
 				//setResponse(response);
