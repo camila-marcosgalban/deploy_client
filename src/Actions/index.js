@@ -1,3 +1,6 @@
+//constants
+import { AllMangas, Detail, Directory, FilterByAuthor, Genres, Paginado, Post, RecomendedMangas, SearchManga } from "./constants";
+
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
 export const GET_GENRES = "GET_GENRES";
@@ -16,7 +19,7 @@ export let mangasToDb = () => {
     return async (dispatch) => {
         try {
             let mangas = await axios.get(
-                "http://localhost:3001/api/mangas/allMangas"
+                AllMangas
             );
             return dispatch({
                 type: MANGAS_TO_DB,
@@ -32,7 +35,7 @@ export let getAllMangas = () => {
     return async (dispatch) => {
         try {
             let allMangas = await axios.get(
-                `http://localhost:3001/api/mangas/directory`
+                Directory
             );
             return dispatch({
                 type: GET_ALL_MANGAS,
@@ -48,7 +51,7 @@ export let getGenres = () => {
     return async (dispatch) => {
         try {
             let allGenres = await axios.get(
-                `http://localhost:3001/api/mangas/listOfGenres`
+                Genres
             );
             return dispatch({
                 type: GET_GENRES,
@@ -64,7 +67,7 @@ export let recomendatedMangas = () => {
     return async (dispatch) => {
         try {
             let allMangas = await axios.get(
-                `http://localhost:3001/api/mangas/recentMangas`
+                RecomendedMangas
             );
             return dispatch({
                 type: RECOMENDATED_MANGAS,
@@ -80,7 +83,7 @@ export let getMangaDetail = (payload) => {
     return async (dispatch) => {
         try {
             let mangaDetail = await axios.get(
-                `http://localhost:3001/api/mangas/manga/${payload}`
+                Detail + payload
             );
             return dispatch({
                 type: GET_DETAIL,
@@ -97,7 +100,7 @@ export let postManga = (payload) => {
         try {
             console.log(payload)
             let manga = await axios.post(
-                `http://localhost:3001/api/mangas`,
+                Post,
                 payload
             );
             return dispatch({
@@ -127,7 +130,7 @@ export let filterMangasByAuthor = (payload) => {
     return async (dispatch) => {
         try {
             let filteredMangas = await axios.get(
-                `http://localhost:3001/api/mangas/byAuthor?author=${payload}`
+                FilterByAuthor + payload
             );
             return dispatch({
                 type: FILTRO_AUTOR,
@@ -156,7 +159,7 @@ export let searchManga = (payload) => {
     return async (dispatch) => {
         try {
             let search = await axios.get(
-                `http://localhost:3001/api/mangas/Search?title=${payload}`
+                SearchManga + payload
             );
             return dispatch({
                 type: SEARCH_MANGA,
@@ -172,7 +175,7 @@ export let getMangasPreview = () => {
     return async (dispatch) => {
         try {
             let search = await axios.get(
-                "http://localhost:3001/api/mangas/Search?title="
+                SearchManga
             );
             return dispatch({
                 type: GET_MANGAS_PREVIEW,
@@ -187,7 +190,7 @@ export let paginado = ({page, genre, order}) => {
     return async (dispatch) => {
         try {
             let mangas = await axios.get(
-                `http://localhost:3001/api/mangas/directory?page=${page}&filter=${genre ? genre : ''}&order=${order ? order : 'asc'}&tags=title`
+                `${Paginado + page}&filter=${genre ? genre : ''}&order=${order ? order : 'asc'}&tags=title`
             );
             return dispatch({
                 type: PAGINADO_PAGE,
