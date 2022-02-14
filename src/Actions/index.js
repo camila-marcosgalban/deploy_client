@@ -270,7 +270,7 @@ export let getCurrentUser = (form) => {
                         username: form.username,
                         password: form.password,
                     },
-                    withCredentials: true,
+                    withCredentials: false,
                 }
 
             );
