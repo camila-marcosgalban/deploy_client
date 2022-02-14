@@ -1,4 +1,4 @@
-import { AllMangas, Detail, Directory, FilterByAuthor, getChapter, loginGoogle, loginLocal, Paginado, RecomendedMangas, SearchManga } from "./constants";
+import { AllMangas, Detail, Directory, FilterByAuthor, getChapter, loginGoogle, loginLocal, Paginado, RecomendedMangas, SearchManga, Genres, Post, Chapters} from "./constants";
 
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
