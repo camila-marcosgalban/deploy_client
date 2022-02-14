@@ -1,4 +1,4 @@
-import { AllMangas, Detail, Directory, FilterByAuthor, getChapter, loginGoogle, loginLocal, Paginado, RecomendedMangas, SearchManga, Genres, Post, Chapters} from "./constants";
+import { AllMangas, Detail, Directory, FilterByAuthor, GetChapter, LoginGoogle, LoginLocal, Paginado, RecomendedMangas, SearchManga, Genres, Post, Chapters} from "./constants";
 
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
@@ -260,7 +260,7 @@ export let getCurrentUser = (form) => {
         try {
         
             const request = await axios.post(
-                loginLocal,
+                LoginLocal,
                 form,
                 {
                     headers: {
@@ -292,7 +292,7 @@ export let getCurrentUser = (form) => {
             const request = await axios({
                 method: "GET",
                 withCredentials: true,
-                url: loginGoogle,
+                url: LoginGoogle,
             });
             const response = await request.data.data;
             console.log(response);
@@ -331,7 +331,7 @@ export let getChapters = () => {
     return async (dispatch) => {
         try {
             let allChapters = await axios.get(
-                getChapter
+                GetChapter
             );
             return dispatch({
                 type: GET_ALL_CHAPTERS,
