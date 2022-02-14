@@ -294,8 +294,8 @@ export let getCurrentUser = (form) => {
                 withCredentials: false,
                 url: LogOut,
             });
-            const response = await request.data.data;
-            console.log(response);
+            // const response = await request.data.data;
+            // console.log(response);
             localStorage.clear();
             return dispatch({
                 type: CURRENT_USER,
