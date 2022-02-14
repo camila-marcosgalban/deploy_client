@@ -290,8 +290,9 @@ export let getCurrentUser = (form) => {
     return async (dispatch) => {
         try {
             const request = await axios.get('https://deploy-back-mangaka-v2.herokuapp.com/api/auth/logout');
-            // const response = await request.data.data;
-            // console.log(response);
+            const response = await request.data;
+            console.log(response);
+            
             localStorage.clear();
             return dispatch({
                 type: CURRENT_USER,
