@@ -27,7 +27,10 @@ export function useForm(initialForm, validation) {
 		try {
 			const request = await axios.post(
 				"https://deploy-back-mangaka-v2.herokuapp.com/api/users/register",
-				formData
+				formData,
+                {
+                    withCredentials: true,
+                }
 			);
 			const response = await request.data.msg;
 			alert(response);
