@@ -29,7 +29,7 @@ export function useForm(initialForm, validation) {
 				"https://deploy-back-mangaka-v2.herokuapp.com/api/users/register",
 				formData,
                 {
-                    withCredentials: true,
+                    withCredentials: false,
                 }
 			);
 			const response = await request.data.msg;
