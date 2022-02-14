@@ -291,7 +291,7 @@ export let getCurrentUser = (form) => {
         try {
             const request = await axios({
                 method: "GET",
-                withCredentials: true,
+                withCredentials: false,
                 url: LoginGoogle,
             });
             const response = await request.data.data;
