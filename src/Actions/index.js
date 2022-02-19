@@ -440,19 +440,19 @@ export let getPopularMangas = () => {
     }
 }
 
-export let popularAuthors = () => {
-    return async (dispatch) => {
-        try{ 
-            let authors = await axios.get()
-            return dispatch({
-                type: GET_AUTHORS,
-                payload: authors.data
-            })
-        } catch(error) {
-            console.log(error)
-        }
-    }
-}
+// export let popularAuthors = () => {
+//     return async (dispatch) => {
+//         try{ 
+//             let authors = await axios.get()
+//             return dispatch({
+//                 type: GET_AUTHORS,
+//                 payload: authors.data
+//             })
+//         } catch(error) {
+//             // console.log(error)
+//         }
+//     }
+// }
 
 export let changeShow = () => {
     return async (dispatch) => {
