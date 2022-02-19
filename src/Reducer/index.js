@@ -20,7 +20,7 @@ import {
     GET_DETAIL_WISHLIST,
     GET_DETAIL_LIBRARY,
     GET_POPULAR_MANGAS,
-    GET_AUTHORS,
+    // GET_AUTHORS,
     CHANGE_SHOW,
     GET_USERS,
     SET_ACTIVE,
@@ -49,7 +49,7 @@ const initialState = {
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     allChapters:[],
     userInfo: {},
-    authors: [],
+    // authors: [],
     show: true,
     allUsers: [],
     getPacks: [],
@@ -173,11 +173,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 popularMangas: payload
             }
-        case GET_AUTHORS:
-            return {
-                ...state,
-                authors: payload
-            }
+        // case GET_AUTHORS:
+        //     return {
+        //         ...state,
+        //         authors: payload
+        //     }
         case CHANGE_SHOW:
             return {
                 ...state,
