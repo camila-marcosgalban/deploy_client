@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangasPreview, searchManga } from "../Actions/index";
+import { getMangasPreview, searchManga, getGoogleUser } from "../Actions/index";
 import PerfilNavbar from "./PerfilNavbar";
 import LoginModal from "./Access/LoginModal";
 import Coin from "../img/coin.png";
+import "animate.css";
 //MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -71,7 +72,7 @@ const List = styled("ul")`
   }
 `;
 const _ArrayBufferToBase64 = (buffer) => {
-  console.log(buffer);
+  
   var binary = "";
   var byte = new Uint8Array(buffer.data);
   var length = byte.byteLength;
@@ -90,8 +91,12 @@ export default function NavBar() {
   //bring the array to preview in the autocomplete filter
   useEffect(() => {
     dispatch(getMangasPreview());
-  }, []);
-
+  }, [dispatch]);
+  
+  useEffect(()=>{
+   user || dispatch(getGoogleUser())
+  },[])
+  
   //local state
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
@@ -211,7 +216,7 @@ export default function NavBar() {
             {user ? (
               <Stack direction="row" spacing={2} justifyContent="center">
                 <Link to="/coins">
-                  <img width="35" height="35" src={Coin} alt="coin icon" />
+                  <img className="animate__animated animate_" style={{height: "36px", width: "36px", marginTop: "2px"}} src={Coin} alt="coin icon" />
                 </Link>
                 <PerfilNavbar />
               </Stack>

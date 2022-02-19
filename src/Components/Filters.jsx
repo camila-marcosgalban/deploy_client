@@ -4,40 +4,46 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { styled } from "@mui/material/styles";
 
 import { React, useEffect } from 'react'; // hooks
 import { useDispatch, useSelector } from 'react-redux'; // hooks
-import { orderMangas, filterMangasByAuthor, filterMangasByGenre, getAllMangas, recomendatedMangas, paginado, getGenres } from '../Actions';
+import { orderMangas, filterMangasByAuthor, filterMangasByGenre, getAllMangas, paginado, getGenres, changeShow } from '../Actions';
 
 
 const Filters = () => {
     const dispatch = useDispatch()
     let filters = useSelector(state => state.filters)
     let genres = useSelector(state => state.genres)
+    let show = useSelector(state => state.show)
 
     let handleGetAll = (e) => {
         e.preventDefault()
+        if(show)dispatch(changeShow())
         dispatch(getAllMangas())
     }
 
     let handleRecomendation = (e) => {
         e.preventDefault()
-        dispatch(recomendatedMangas())
+        if(!show)dispatch(changeShow())
     }
 
     let handleOrder = (e) => {
         e.preventDefault()
+        if(show)dispatch(changeShow())
         dispatch(orderMangas(e.target.value))
         dispatch(paginado({page: 1, order: e.target.value, genre: filters.genre}))
     }
 
     let handleFilterAuthor = (e) => {
         e.preventDefault()
+        if(show)dispatch(changeShow())
         dispatch(filterMangasByAuthor(e.target.value))
     }
 
     let handleFilterGenre = (e) => {
         e.preventDefault()
+        if(show)dispatch(changeShow())
         dispatch(filterMangasByGenre(e.target.value))
         dispatch(paginado({page: 1, genre: e.target.value, order: filters.order}))
     }
@@ -46,12 +52,20 @@ const Filters = () => {
         dispatch(getGenres())
     }, [])
 
+    const StackContainer = styled(Stack)`
+        width: 100%;
+        overflow-x: scroll;
+        scrollbar-width: thin;
+        ::-webkit-scrollbar {
+            background: transparent; /* make scrollbar transparent */
+        }
+    `
+
     return (
-        <div>
-            <Stack sx={{ backgroundColor: '#192A45' }} direction= "row" justifyContent='center' alignItems="center">
-                <Button variant="contained" onClick={handleRecomendation} sx={{ color: '#357DED', width: '15%', height: '3.4rem', backgroundColor: '#000', my: '1rem', mx: '2rem', borderRadius: 2 }}>Recomendaciones</Button>
-                <FormControl sx={{ width: '15%', backgroundColor: '#000', my: '1rem', mx: '2rem', borderRadius: 2 }}>
-                    <InputLabel id="demo-simple-select-label" sx={{ color: '#357DED' }}>GÉNEROS POPULARES</InputLabel>
+            <StackContainer sx={{ backgroundColor: '#192A45' }} direction="row" justifyContent='center' alignItems="center" >
+                <Button variant="contained" onClick={handleRecomendation} sx={{ color: '#357DED',width: '150px', height: '3.4rem', backgroundColor: '#000', my: '1rem', mx: '1rem', borderRadius: 2 }}>Para Vos</Button>
+                <FormControl sx={{  backgroundColor: '#000',width: '150px', my: '1rem', mx: '1rem', borderRadius: 2 }}>
+                    <InputLabel id="demo-simple-select-label" sx={{ color: '#357DED', width: '150px' }}>GÉNEROS POPULARES</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -77,8 +91,8 @@ const Filters = () => {
                         <MenuItem value={'Adventure'} sx={{ color: '#357DED' }}>AVENTURA</MenuItem> */}
                     </Select>
                 </FormControl>
-                <FormControl sx={{ width: '15%', backgroundColor: '#000', my: '1rem', mx: '2rem', borderRadius: 2 }}>
-                    <InputLabel id="demo-simple-select-label" sx={{ color: '#357DED' }}>AUTORES</InputLabel>
+                <FormControl sx={{  backgroundColor: '#000',width: '150px', my: '1rem', mx: '1rem', borderRadius: 2 }}>
+                    <InputLabel id="demo-simple-select-label" sx={{ width: '150px',color: '#357DED' }}>AUTORES</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -90,8 +104,8 @@ const Filters = () => {
                         <MenuItem value={'Admin'} sx={{ color: '#357DED' }}>ADMIN</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl sx={{ width: '15%', backgroundColor: '#000', my: '1rem', mx: '2rem', borderRadius: 2 }}>
-                    <InputLabel id="demo-simple-select-label" sx={{ color: '#357DED' }}>ORDEN</InputLabel>
+                <FormControl sx={{  backgroundColor: '#000', width: '150px', my: '1rem', mx: '1rem', borderRadius: 2 }}>
+                    <InputLabel id="demo-simple-select-label" sx={{ color: '#357DED', width: '150px' }}>ORDEN</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -105,9 +119,8 @@ const Filters = () => {
                         {/* <MenuItem value={'createdAt'} sx={{ color: '#357DED' }}>NUEVOS</MenuItem> */}
                     </Select>
                 </FormControl>
-                <Button variant="contained" onClick={handleGetAll} sx={{ color: '#357DED', width: '15%', height: '3.4rem', backgroundColor: '#000', my: '1rem', mx: '2rem', borderRadius: 2 }}>Todos</Button>
-            </Stack>
-        </div>
+                <Button variant="contained" onClick={handleGetAll} sx={{ color: '#357DED', width: '150px',  height: '3.4rem', backgroundColor: '#000', my: '1rem', mx: '1rem', borderRadius: 2 }}>Todos</Button>
+            </StackContainer>
 
     )
 }

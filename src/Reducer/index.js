@@ -8,7 +8,7 @@ import {
     FILTRO_AUTOR,
     ORDER,
     SEARCH_MANGA,
-    RECOMENDATED_MANGAS,
+    RECENT_MANGAS,
     PAGINADO_PAGE,
     GET_MANGAS_PREVIEW,
     POST_CHAPTERS,
@@ -16,11 +16,27 @@ import {
     GET_WISHLIST,
     CURRENT_USER,
     GET_ALL_CHAPTERS,
+    GET_USER_INFO,
+    GET_DETAIL_WISHLIST,
+    GET_DETAIL_LIBRARY,
+    GET_POPULAR_MANGAS,
+    GET_AUTHORS,
+    CHANGE_SHOW,
+    GET_USERS,
+    SET_ACTIVE,
+    SET_ACTIVE_MANGA,
+    SET_ADMIN,
+    POST_CHECKOUT,
+    GET_PACKS,
+    BUY_COINS,
+    // GET_PREFERENCE_ID
 } from "../Actions";
 
 const initialState = {
+    mangas:[],
     allMangas: [],
-    currentMangas: [],
+    recentMangas: [],
+    popularMangas: [],
     mangaDetail: {},
     genres: [],
     mangasPreview: [],
@@ -32,7 +48,12 @@ const initialState = {
     wishlist: [],
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     allChapters:[],
-
+    userInfo: {},
+    authors: [],
+    show: true,
+    allUsers: [],
+    getPacks: [],
+    preferenceId: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -45,6 +66,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         case MANGAS_TO_DB:
             return {
                 ...state,
+                allMangas: payload
             };
         case GET_ALL_MANGAS:
             return {
@@ -59,10 +81,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 genres: payload,
             };
-        case RECOMENDATED_MANGAS:
+        case RECENT_MANGAS:
             return {
                 ...state,
-                allMangas: payload,
+                recentMangas: payload,
             };
         case GET_DETAIL:
             return {
@@ -131,6 +153,77 @@ const rootReducer = (state = initialState, { type, payload }) => {
                     allChapters: payload,
                     
                 };
+        case GET_USER_INFO: 
+            return {
+                ...state,
+                userInfo: payload
+            }
+        case GET_DETAIL_WISHLIST:
+            return  {
+                ...state,
+                wishlist: state.wishlist.concat(payload)
+            }
+        case GET_DETAIL_LIBRARY:
+            return {
+                ...state,
+                library: state.library.concat(payload)
+            }
+        case GET_POPULAR_MANGAS:
+            return {
+                ...state,
+                popularMangas: payload
+            }
+        case GET_AUTHORS:
+            return {
+                ...state,
+                authors: payload
+            }
+        case CHANGE_SHOW:
+            return {
+                ...state,
+                show: !state.show
+            }
+        case GET_USERS:
+            return {
+                ...state,
+                allUsers: payload,
+                
+            };
+        case SET_ACTIVE:
+            return {
+                ...state,
+        };
+        case SET_ACTIVE_MANGA:
+            return {
+                ...state,
+        };
+        case SET_ADMIN:
+            return {
+                ...state,
+        };
+
+        case POST_CHECKOUT:
+            return {
+                ...state,
+            };
+
+        case GET_PACKS:
+            return {
+                ...state,
+                getPacks: payload,
+                
+            };
+        case BUY_COINS:
+            return {
+                ...state,
+                preferenceId: payload,
+            }
+        // case GET_PREFERENCE_ID:
+        //     return {
+        //         ...state,
+        //         preferenceId: payload,
+        //     };
+
         default:
             return state;
     }
