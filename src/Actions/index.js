@@ -347,6 +347,7 @@ export const getGoogleUser = () => {
                 withCredentials: false,
                 url: LoginGoogle,
             });
+            console.log(request)
             const response = await request.data;
             console.log(response)
             if (response.msg === "usuario no logueado") {
