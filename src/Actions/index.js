@@ -1,4 +1,4 @@
-import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapterById} from "./constants";
+import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapterById, wishlist, deleteWishlist, addWishlist} from "./constants";
 
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
@@ -31,6 +31,10 @@ export const POST_CHECKOUT = "POST_CHECKOUT";
 export const GET_PACKS = "GET_PACKS";
 export const BUY_COINS = "BUY_COINS";
 export const GET_CHAPTER = "GET_CHAPTER";
+export const GET_LIBRARY = "GET_LIBRARY";
+export const GET_WISHLIST = "GET_WISHLIST";
+export const DELETE_WISHLIST_MANGA = 'DELETE_WISHLIST_MANGA'
+export const ADD_MANGA_WISHLIST = 'ADD_MANGA_WISHLIST'
 // export const GET_PREFERENCE_ID = "GET_PREFERENCE_ID"
 
 const axios = require("axios");
@@ -393,6 +397,49 @@ export let getUserInfo = (payload) => {
             })
         } catch (error) {
             console.log(error)
+        }
+    }
+}
+
+export let getWishList = (payload) => {
+    return async (dispatch) => {
+        try {
+            let mangas = await axios.get(wishlist, { withCredentials: true })
+            return dispatch({
+                type: GET_WISHLIST,
+                payload: mangas.data
+            })
+        } catch(error) {
+            console.log(error.response)
+        }
+    }
+}
+
+export let deleteWishlistManga = (payload) => {
+    return async (dispatch) => {
+        try {
+            console.log(payload)
+            let manga = axios.put(deleteWishlist, {mangaId: payload}, { withCredentials: true })
+            return dispatch({
+                type: DELETE_WISHLIST_MANGA,
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+}
+
+export let addMangaWishList = (payload) => {
+    return async (dispatch) => {
+        try {
+            console.log(payload)
+            let manga = axios.put(addWishlist, payload, { withCredentials: true })
+            return dispatch({
+                type: ADD_MANGA_WISHLIST,
+                payload: manga.data
+            })
+        } catch(error) {
+            console.log(error.response)
         }
     }
 }
