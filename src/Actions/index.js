@@ -604,7 +604,7 @@ export let getPacks = () => {
     return async (dispatch) => {
         try {
             let packs = await axios.get(
-                getPacks
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/coins/pack'
             );
             return dispatch({
                 type: GET_PACKS,
