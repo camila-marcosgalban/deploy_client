@@ -99,7 +99,7 @@ export default function Coins() {
     console.log(packs);
     console.log(user);
 
-    const handleGetPacks () => {
+    const handleGetPacks = () => {
         dispatch(getPacks());
     }
     const handleChange = (event, newValue) => {
