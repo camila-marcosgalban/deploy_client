@@ -518,11 +518,12 @@ export let getAllUsers = () => {
     return async (dispatch) => {
         try {
             let users = await axios.get(
-                getAllUsers
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/users'
             );
             return dispatch({
                 type: GET_USERS,
                 payload: users.data,
+                {withCredentials: true},
             });
         } catch (error) {
             console.log(error);
@@ -540,6 +541,7 @@ export let setActive = (payload) => {
             return dispatch({
                 type: SET_ACTIVE,
                 payload: setActive.data,
+                {withCredentials: true},
             });
         } catch (error) {
             console.log(error);
