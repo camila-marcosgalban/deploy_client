@@ -155,7 +155,7 @@ export default function Coins() {
             setTimeout(() => {
                 setLoading(false)
                 setBuy(true)
-            }, 3000)
+            }, 20000)
         }
     }, [bought])
 
