@@ -31,7 +31,6 @@ export const POST_CHECKOUT = "POST_CHECKOUT";
 export const GET_PACKS = "GET_PACKS";
 export const BUY_COINS = "BUY_COINS";
 export const GET_CHAPTER = "GET_CHAPTER";
-export const GET_LIBRARY = "GET_LIBRARY";
 export const GET_WISHLIST = "GET_WISHLIST";
 export const DELETE_WISHLIST_MANGA = 'DELETE_WISHLIST_MANGA'
 export const ADD_MANGA_WISHLIST = 'ADD_MANGA_WISHLIST'
