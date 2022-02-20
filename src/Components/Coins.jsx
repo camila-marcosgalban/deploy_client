@@ -101,7 +101,6 @@ export default function Coins() {
 
     const handleGetPacks = () => {
         dispatch(getPacks());
-        console.log(packs)
     }
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -259,7 +258,7 @@ export default function Coins() {
                                     bgcolor: "background.paper",
                                 }}
                             >
-                                {/* {packs?.map((pack, index) => (
+                                {packs?.map((pack, index) => (
                                     <ListItem key={pack.value}>
                                         <ListItemButton>
                                             <ListItemAvatar>
@@ -290,7 +289,7 @@ export default function Coins() {
                                             </ListItem>
                                         </ListItemButton>
                                     </ListItem>
-                                ))} */}
+                                ))}
                                 {loading ?
                                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                         <CircularProgress />

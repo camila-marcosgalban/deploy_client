@@ -1,4 +1,4 @@
-import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapterById, wishlist, deleteWishlist, addWishlist} from "./constants";
+import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapterById, wishlist, deleteWishlist, addWishlist, getPacks} from "./constants";
 
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
@@ -604,7 +604,7 @@ export let getPacks = () => {
     return async (dispatch) => {
         try {
             let packs = await axios.get(
-                'https://deploy-back-mangaka-v2.herokuapp.com/api/coins/pack'
+                getPacks
             );
             return dispatch({
                 type: GET_PACKS,
