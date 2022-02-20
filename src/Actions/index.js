@@ -539,7 +539,7 @@ export let setActive = (payload) => {
                 setActive + payload
             );
             return dispatch({
-                type: SET_ACTIVE,
+                type: 'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive',
                 payload: setActive.data,
                 withCredentials: true,
             });
