@@ -621,8 +621,9 @@ export let buyCoins = (payload) => {
         try {
             console.log(payload);
             let buyCoins = await axios.post(
-                buyCoins,
-                payload
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/coins/buy',
+                payload,
+                    {withCredentials: true},
             );
             return dispatch({
                 type: BUY_COINS,
