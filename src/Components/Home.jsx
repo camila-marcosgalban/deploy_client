@@ -7,8 +7,7 @@ import Navbar from './Navbar';
 import Banner from './Banner';
 import Paginado from './Paginado'
 //actions
-import { getAllMangas, getPopularMangas, getRecentMangas } from '../Actions'
-// import { getAllMangas, popularAuthors, getPopularMangas, getRecentMangas } from '../Actions'
+import { getAllMangas, popularAuthors, getPopularMangas, getRecentMangas } from '../Actions'
 import { useEffect } from 'react';
 //mui
 import { Container } from '@mui/material';
@@ -19,59 +18,58 @@ const Home = () => {
 
     const allMangas = useSelector((state) => state.allMangas)
     const recentMangas = useSelector(state => state.recentMangas)
-    const popularMangas = useSelector(state => state.popularMangas)
-    // const authors = useSelector(state => state.authors)
-    const show = useSelector(state => state.show)
+    const popularMangas = useSelector(state=>state.popularMangas)
+    const authors = useSelector(state => state.authors)
+    const show = useSelector(state=>state.show)
 
     useEffect(() => {
         dispatch(getAllMangas())
         dispatch(getRecentMangas())
         dispatch(getPopularMangas())
-        // dispatch(popularAuthors())
+        dispatch(popularAuthors())
     }, [dispatch])
 
-
+    
 
 
     return (
         <div>
-            <Navbar />
-            <Banner />
+            <Navbar/>
+            <Banner/>
             <Filters />
-            {
+            {   
                 show ?
+                <Container fixed sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                    <Recomendados mangasRecientes={recentMangas} mangasDestacados={popularMangas} autoresPopulares={authors}/>
+                </Container> 
+            :
+                <div>
+                    <Paginado total={allMangas.total}/>
                     <Container fixed sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                        {/* <Recomendados mangasRecientes={recentMangas} mangasDestacados={popularMangas} autoresPopulares={authors} /> */}
-                        <Recomendados mangasRecientes={recentMangas} mangasDestacados={popularMangas} />
+                 
+                    {
+                        allMangas.data?.map((m, i) => {
+                            //console.log(m)
+                            return (
+                                <div key={i}>
+                                    <MangaCard
+                                        id={m.id}
+                                        title={m.title}
+                                        image={m.image}
+                                        author={m.author?.name}
+                                        genre={m.genre}
+                                    />
+                                </div>
+                            )
+                        })
+                    }
                     </Container>
-                    :
-                    <div>
-                        <Paginado total={allMangas.total} />
-                        <Container fixed sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-
-                            {
-                                allMangas.data?.map((m, i) => {
-                                    //console.log(m)
-                                    return (
-                                        <div key={i}>
-                                            <MangaCard
-                                                id={m.id}
-                                                title={m.title}
-                                                image={m.image}
-                                                author={m.author?.name}
-                                                genre={m.genre}
-                                            />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </Container>
-                    </div>
-
+                </div>
+                
             }
-
-
-
+            
+            
+            
         </div>
     )
 }

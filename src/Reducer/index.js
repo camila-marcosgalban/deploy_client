@@ -29,6 +29,7 @@ import {
     POST_CHECKOUT,
     GET_PACKS,
     BUY_COINS,
+    GET_CHAPTER
     // GET_PREFERENCE_ID
 } from "../Actions";
 
@@ -53,7 +54,8 @@ const initialState = {
     show: true,
     allUsers: [],
     getPacks: [],
-    preferenceId: []
+    preferenceId: [],
+    chapter: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -223,7 +225,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         //         ...state,
         //         preferenceId: payload,
         //     };
-
+        case GET_CHAPTER:
+            return {
+                ...state,
+                chapter: payload,
+            }
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapter, GetUserInfo } from "./constants";
+import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapter} from "./constants";
 
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
@@ -30,6 +30,7 @@ export const SET_ADMIN = "SET_ADMIN";
 export const POST_CHECKOUT = "POST_CHECKOUT";
 export const GET_PACKS = "GET_PACKS";
 export const BUY_COINS = "BUY_COINS";
+export const GET_CHAPTER = "GET_CHAPTER";
 // export const GET_PREFERENCE_ID = "GET_PREFERENCE_ID"
 
 const axios = require("axios");
@@ -371,7 +372,7 @@ export let getChapters = (payload) => {
     return async (dispatch) => {
         try {
             let allChapters = await axios.get(
-                GetChapter + payload
+                GetChapters + payload
             );
             return dispatch({
                 type: GET_ALL_CHAPTERS,
@@ -605,3 +606,19 @@ export let buyCoins = (payload) => {
 //         }
 //     };
 // };
+
+export let getChapter = (payload) => {
+    return async (dispatch) => {
+        try {
+            let getChapter = await axios.get(
+                getChapter + payload
+            );
+            return dispatch({
+                type: GET_CHAPTER,
+                payload: getChapter.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
