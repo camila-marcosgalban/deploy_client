@@ -99,6 +99,9 @@ export default function Coins() {
     console.log(packs);
     console.log(user);
 
+    const handleGetPacks () => {
+        dispatch(getPacks());
+    }
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -237,7 +240,8 @@ export default function Coins() {
 
             {/* modal */}
             <div>
-                <Dialog
+            {packs ? 
+             <Dialog
                     open={open}
                     TransitionComponent={Transition}
                     onClose={handleClose}
@@ -308,6 +312,8 @@ export default function Coins() {
                         <Button onClick={handleClose}>Agree</Button>
                     </DialogActions> */}
                 </Dialog>
+                : <Button onClick={handleGetPacks}>Get Packs</Button>
+            }
             </div>
         </div>
     );
