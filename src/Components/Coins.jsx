@@ -130,7 +130,7 @@ export default function Coins() {
     const [loading, setLoading] = useState(false);
     const handleBuy = (e) => {
         console.log(e.target.value);
-        let packBought = packs.filter((pack) => pack.id == e.target.value);
+        let packBought = packs?.filter((pack) => pack.id == e.target.value);
         console.log(packBought[0]);
         let packInfo = {
             title: packBought[0].title,
