@@ -523,7 +523,7 @@ export let getAllUsers = () => {
             return dispatch({
                 type: GET_USERS,
                 payload: users.data,
-                {withCredentials: true},
+                withCredentials: true,
             });
         } catch (error) {
             console.log(error);
@@ -541,7 +541,7 @@ export let setActive = (payload) => {
             return dispatch({
                 type: SET_ACTIVE,
                 payload: setActive.data,
-                {withCredentials: true},
+                withCredentials: true,
             });
         } catch (error) {
             console.log(error);
