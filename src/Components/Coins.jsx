@@ -254,7 +254,7 @@ export default function Coins() {
                                     bgcolor: "background.paper",
                                 }}
                             >
-                                {packs.map((pack, index) => (
+                                {packs?.map((pack, index) => (
                                     <ListItem key={pack.value}>
                                         <ListItemButton>
                                             <ListItemAvatar>
