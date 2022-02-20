@@ -21,7 +21,7 @@ export default function ({ data }) {
     console.log("aca", data);
     let datita = data.data;
     useEffect(() => {
-        // setTimeout(function () {
+        setTimeout(function () {
         // setLoading(false)
         const script = document.createElement("script");
         const attr_data_preference = document.createAttribute('data-preference-id');
@@ -35,7 +35,7 @@ export default function ({ data }) {
         return () => {
             document.getElementById("form1")?.removeChild(script);
         };
-        // }, 2000);
+        }, 2000);
     }, [datita]);
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: "1rem" }}>
