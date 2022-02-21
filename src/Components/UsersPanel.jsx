@@ -130,15 +130,14 @@ export default function DataGridDemo() {
     if (data.field === 'estado') {
         let user = allUsers.find(user => user.id === data.id)
         let row = rows[0].find(row => row.id === data.id)
-        // row.estado = data.value;
-        dispatch(setActive(user.username))
-        dispatch(getAllUsers());
-    }else if (data.field === 'rol') {
-        let user = allUsers.find(user => user.id === data.id);
-        let row = rows[0].find(row => row.id === data.id);
-        // row.rol = data.value;
+        dispatch(setActive(user.username));
+        row.estado = data.value;
+    }
+    if (data.field === 'rol') {
+        let user = allUsers.find(user => user.id === data.id)
+        let row = rows[0].find(row => row.id === data.id)
         dispatch(setAdmin(user.username))
-        dispatch(getAllUsers());
+        row.rol = data.value;
     }
 
     return (
