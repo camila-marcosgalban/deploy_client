@@ -518,12 +518,11 @@ export let getAllUsers = () => {
     return async (dispatch) => {
         try {
             let users = await axios.get(
-                'https://deploy-back-mangaka-v2.herokuapp.com/api/users'
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/users', {withCredentials: true}
             );
             return dispatch({
                 type: GET_USERS,
-                payload: users.data,
-                withCredentials: true,
+                payload: users.data
             });
         } catch (error) {
             console.log(error);
@@ -536,12 +535,11 @@ export let setActive = (payload) => {
         try {
             console.log(payload);
             let setActive = await axios.put(
-                setActive + payload
+                setActive + payload, { withCredentials: true},
             );
             return dispatch({
                 type: 'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive',
                 payload: setActive.data,
-               { withCredentials: true},
             });
         } catch (error) {
             console.log(error);
@@ -554,12 +552,11 @@ export let setActiveManga = (payload) => {
         try {
             console.log(payload);
             let setActiveManga = await axios.put(
-                setActiveManga + payload
+                setActiveManga + payload, { withCredentials: true},
             );
             return dispatch({
                 type: SET_ACTIVE_MANGA,
                 payload: setActiveManga.data,
-                { withCredentials: true},
             });
         } catch (error) {
             console.log(error);
@@ -572,12 +569,11 @@ export let setAdmin = (payload) => {
         try {
             console.log(payload);
             let setAdmin = await axios.put(
-                setAdmin + payload
+                setAdmin + payload, { withCredentials: true},
             );
             return dispatch({
                 type: SET_ADMIN,
                 payload: setAdmin.data,
-                { withCredentials: true},
             });
         } catch (error) {
             console.log(error);
