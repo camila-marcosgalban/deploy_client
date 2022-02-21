@@ -14,6 +14,7 @@ export default function DataGridDemo() {
     }, [dispatch])
     const allUsers = useSelector((state) => state.allUsers)
     const loggedUser = useSelector((state) => state.user)
+    console.log(loggedUser)
 
     // const [funcion, setFuncion] = React.useState('');
 

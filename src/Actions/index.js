@@ -541,7 +541,7 @@ export let setActive = (payload) => {
             return dispatch({
                 type: 'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive',
                 payload: setActive.data,
-                withCredentials: true,
+               { withCredentials: true},
             });
         } catch (error) {
             console.log(error);
@@ -559,6 +559,7 @@ export let setActiveManga = (payload) => {
             return dispatch({
                 type: SET_ACTIVE_MANGA,
                 payload: setActiveManga.data,
+                { withCredentials: true},
             });
         } catch (error) {
             console.log(error);
@@ -576,6 +577,7 @@ export let setAdmin = (payload) => {
             return dispatch({
                 type: SET_ADMIN,
                 payload: setAdmin.data,
+                { withCredentials: true},
             });
         } catch (error) {
             console.log(error);

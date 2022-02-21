@@ -46,6 +46,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/author" element={<AuthorDetail />} />
+        <Route path="/reader/:id" element={<Reader />} />
 
         {user && (
           <>
@@ -55,7 +56,6 @@ function App() {
             <Route path="/panel" element={<Panel />} />
             <Route path="/coins" element={<Coins />} />
             <Route path="/createChapters/:id" element={<CreateChapters />} />
-            <Route path="/reader/:id" element={<Reader />} />
             {/*Configuración de Perfil*/}
             <Route path="/profile/" element={<Profile />}>
               <Route index element={<IndexProfile />} />
