@@ -535,10 +535,10 @@ export let setActive = (payload) => {
         try {
             console.log(payload);
             let setActive = await axios.put(
-                setActive + payload, { withCredentials: true},
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive' + payload, { withCredentials: true},
             );
             return dispatch({
-                type: 'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive',
+                type: SET_ACTIVE,
                 payload: setActive.data,
             });
         } catch (error) {
@@ -552,7 +552,7 @@ export let setActiveManga = (payload) => {
         try {
             console.log(payload);
             let setActiveManga = await axios.put(
-                setActiveManga + payload, { withCredentials: true},
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/mangas/manga/setActive' + payload, { withCredentials: true},
             );
             return dispatch({
                 type: SET_ACTIVE_MANGA,
@@ -569,7 +569,7 @@ export let setAdmin = (payload) => {
         try {
             console.log(payload);
             let setAdmin = await axios.put(
-                setAdmin + payload, { withCredentials: true},
+                'https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setAdmin' + payload, { withCredentials: true},
             );
             return dispatch({
                 type: SET_ADMIN,
