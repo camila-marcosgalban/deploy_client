@@ -336,7 +336,7 @@ export const UserLogout = () => {
     };
 };
 
-/*
+
 //Traer id desde el back
 const getUser = () => {
     return async (dispatch) => {
@@ -354,7 +354,7 @@ const getUser = () => {
             }
 }
 }
-*/
+
 
 export const getGoogleUser = () => {
     return async (dispatch) => {
