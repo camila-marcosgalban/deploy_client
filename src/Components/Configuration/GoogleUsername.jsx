@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../Actions/index';
-import Snackbar, { initialSnack } from './Snackbar';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUser} from '../../Actions/index';
+import Snackbar, {initialSnack} from './Snackbar';
 //MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -11,33 +11,32 @@ import Button from "@mui/material/Button";
 //CSS
 import "animate.css";
 
-const Name = () => {
-	const dispatch = useDispatch();
+const GoogleUsername = () => {
+const dispatch = useDispatch();
 	const { user } = useSelector((state) => state);
-	const [newName, setName] = useState("");
-	const [snack, setSnack] = useState(initialSnack)
+	const [newUsername, setUsername] = useState("");
+	const [snack, setSnack] = useState(initialSnack);
 	const handleChange = (e) => {
-		setName(e.target.value);
+		setUsername(e.target.value);
 	};
-	const handleSubmitName = (e) => {
+	const handleSubmitUsername = (e) => {
 		e.preventDefault();
 		setSnack(initialSnack);
-		console.log(newName);
-		if (newName) {
+		if (newUsername) {
 			axios
 				.put(
-					`https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateName`,
-					{ newName },
+					`http://localhost:3001/api/profile/updateUsername`,
+					{ newUsername },
 					{ withCredentials: true }
 				)
-				.then((res) => {
-					setSnack({ type: "success", message: res.data.message })
-					return dispatch(getUser());
+				.then((res) =>{
+					setSnack({type: "success", message: res.data.message})
+					dispatch(getUser());
 				})
 				.catch((error) => console.log(error));
-			setName("");
+				setUsername("");
 		} else {
-			setSnack({ type: "error", message: "Introduzca un nombre" });
+			setSnack({type:"error", message: "Introduzca un username"})
 		}
 	};
 
@@ -46,11 +45,11 @@ const Name = () => {
 			<Box
 				sx={{ width: "100%" }}
 				component="form"
-				onSubmit={handleSubmitName}
+				onSubmit={handleSubmitUsername}
 				autoComplete="off"
 			>
-				<Typography variant="h4">Cambiar Nombre</Typography>
-				<Typography variant="h6">Nombre Actual: {user.name}</Typography>
+				<Typography variant="h4">Cambiar Username</Typography>
+				<Typography variant="h6">Username Actual: {user.username}</Typography>
 				<TextField
 					fullWidth
 					sx={{
@@ -62,18 +61,18 @@ const Name = () => {
 					variant="filled"
 					name="name"
 					type="text"
-					value={newName}
+					value={newUsername}
 					onChange={handleChange}
 					required
 				/>
 
 				<Button type="submit" variant="contained">
-					Cambiar Nombre
+					Cambiar Username
 				</Button>
 			</Box>
 			{snack.message && <Snackbar type={snack.type} message={snack.message} />}
 		</Box>
 	);
-};
+}
 
-export default Name;
+export default GoogleUsername

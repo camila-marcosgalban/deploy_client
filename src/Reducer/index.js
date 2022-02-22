@@ -20,17 +20,29 @@ import {
     GET_DETAIL_WISHLIST,
     GET_DETAIL_LIBRARY,
     GET_POPULAR_MANGAS,
-    // GET_AUTHORS,
+    GET_AUTHORS,
     CHANGE_SHOW,
     GET_USERS,
     SET_ACTIVE,
     SET_ACTIVE_MANGA,
     SET_ADMIN,
+    DELETE_WISHLIST_MANGA,
+    ADD_MANGA_WISHLIST,
     POST_CHECKOUT,
     GET_PACKS,
     BUY_COINS,
-    GET_CHAPTER
-    // GET_PREFERENCE_ID
+    GET_CHAPTER,
+    GET_AUTHOR_DETAILS,
+    FAVORITE,
+    GET_POPULAR_AUTHORS,
+    REMOVE_FAVORITE,
+    GET_BUY_ORDERS,
+    GET_SELL_ORDERS,
+    GET_BUYER_ORDER,
+    GET_SELLER_ORDER,
+    GET_PANEL_MANGAS,
+    BUY_CHAPTERS,
+    SEE_COMMENTS,
 } from "../Actions";
 
 const initialState = {
@@ -50,12 +62,23 @@ const initialState = {
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     allChapters:[],
     userInfo: {},
-    // authors: [],
+    authors: [],
     show: true,
     allUsers: [],
     getPacks: [],
     preferenceId: [],
-    chapter: []
+    chapter: [],
+    authorDetail: undefined,
+    favorite: [],
+    popularAuthors: [],
+    getBuyOrders: [],
+    getSellOrders: [],
+    getBuyerOrder: [],
+    getSellerOrder: [],
+    panelMangas: [],
+    chapters: [],
+    panelMangas: [],
+    allComments:[],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -175,11 +198,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 popularMangas: payload
             }
-        // case GET_AUTHORS:
-        //     return {
-        //         ...state,
-        //         authors: payload
-        //     }
+        case GET_AUTHORS:
+            return {
+                ...state,
+                authors: payload
+            }
         case CHANGE_SHOW:
             return {
                 ...state,
@@ -203,6 +226,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
         };
+        case DELETE_WISHLIST_MANGA:
+            return {
+                ...state
+            }
+        case ADD_MANGA_WISHLIST: 
+            return {
+                ...state,
+                wishlist: state.wishlist.concat(payload)
+            }
 
         case POST_CHECKOUT:
             return {
@@ -220,16 +252,73 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 preferenceId: payload,
             }
-        // case GET_PREFERENCE_ID:
-        //     return {
-        //         ...state,
-        //         preferenceId: payload,
-        //     };
         case GET_CHAPTER:
             return {
                 ...state,
                 chapter: payload,
             }
+        // case GET_PREFERENCE_ID:
+        //     return {
+        //         ...state,
+        //         preferenceId: payload,
+        //     };
+        case GET_AUTHOR_DETAILS:
+            return {
+                ...state,
+                authorDetail: payload,
+            };
+        case FAVORITE:
+            return {
+                ...state,
+                favorite: payload,
+            };
+        case GET_POPULAR_AUTHORS: 
+            return {
+                ...state,
+                popularAuthors: payload
+            };
+        case REMOVE_FAVORITE:
+            
+            let remove = state.favorite.data.filter((f)=> {return f.id !== payload});    
+          
+            return {
+                ...state,
+                favorite: {data:remove, totalFavorites:remove.length}
+            };
+        case GET_BUY_ORDERS: 
+            return {
+                ...state,
+                getBuyOrders: payload
+            };
+        case GET_SELL_ORDERS: 
+            return {
+                ...state,
+                getSellOrders: payload
+            };
+        case GET_PANEL_MANGAS:
+            return {
+                ...state,
+                panelMangas: payload
+            }
+            case GET_BUYER_ORDER:
+            return {
+                ...state,
+                getBuyerOrder: payload
+            }
+            case GET_SELLER_ORDER:
+            return {
+                ...state,
+                getSellerOrder: payload
+            }
+        case BUY_CHAPTERS:
+            return {
+                ...state
+            }
+        case SEE_COMMENTS:
+            return {
+                ...state,
+                allComments: payload
+            };
         default:
             return state;
     }

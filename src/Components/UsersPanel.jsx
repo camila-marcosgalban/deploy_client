@@ -14,7 +14,6 @@ export default function DataGridDemo() {
     }, [dispatch])
     const allUsers = useSelector((state) => state.allUsers)
     const loggedUser = useSelector((state) => state.user)
-    console.log(loggedUser)
 
     // const [funcion, setFuncion] = React.useState('');
 
@@ -88,7 +87,7 @@ export default function DataGridDemo() {
             coins: user.coins,
             creador: user.creatorMode ? 'Creador' : 'Usuario',
             estado: user.active ? 'Activo' : 'Inactivo',
-            rol: user.role === 'SUPERADMIN' ? 'Super Admin' : user.role === 'ADMIN' ? 'Admin' : 'Usuario'
+            rol: user.role === 'SUPERADMkIN' ? 'Super Admin' : user.role === 'ADMIN' ? 'Admin' : 'Usuario'
             // <Select
             //     labelId="demo-simple-select-autowidth-label"
             //     id="demo-simple-select-autowidth"
@@ -113,14 +112,13 @@ export default function DataGridDemo() {
                 editable: true,
                 valueOptions: [
                     "Usuario",
-                    "Admin",
-                    "Super Admin",
+                    "Admin"
                 ]
             }
         )
         rows.push(
             allUsers?.map(user => ({
-                rol: user.role === 'SUPERADMIN' ? 'Super Admin' : user.role === 'ADMIN' ? 'Admin' : 'Usuario'
+                rol: user.role === 'ADMIN' ? 'Admin' : 'Usuario'
             }))
         )
     }
@@ -132,13 +130,16 @@ export default function DataGridDemo() {
         let row = rows[0].find(row => row.id === data.id)
         dispatch(setActive(user.username));
         row.estado = data.value;
+        user.active = data.value === 'Activo' ? true : false;
     }
     if (data.field === 'rol') {
         let user = allUsers.find(user => user.id === data.id)
         let row = rows[0].find(row => row.id === data.id)
-        dispatch(setAdmin(user.username))
+        dispatch(setAdmin(user.username));
         row.rol = data.value;
+        user.role = data.value === 'Admin' ? 'ADMIN' : 'USER';
     }
+
 
     return (
         <div style={{ height: 400, width: '100%' }}>

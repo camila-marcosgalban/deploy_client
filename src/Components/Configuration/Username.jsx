@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../Actions/index";
+import Snackbar, { initialSnack } from "./Snackbar";
+//MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -12,6 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+//CSS
 import "animate.css";
 
 const initialForm = {
@@ -20,8 +25,11 @@ const initialForm = {
 };
 
 const Username = () => {
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state);
 	const [form, setForm] = useState(initialForm);
 	const [show, setShow] = useState(false);
+	const [snack, setSnack] = useState(initialSnack);
 	const handleClickShowPassword = () => {
 		setShow(!show);
 	};
@@ -31,13 +39,23 @@ const Username = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setSnack(initialSnack);
 		if (form.password && form.newUsername) {
 			axios
-				.put("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateUsername", form)
-				.then((res) => alert(res.message))
+				.put(`https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateUsername`, form, {
+					withCredentials: true,
+				})
+				.then((res) => {
+					setSnack({ type: "success", message: res.data.message });
+					return dispatch(getUser());
+				})
 				.catch((error) => console.log(error));
+			setForm(initialForm);
 		} else {
-			alert("Ambos campos deben ser llenados");
+			setSnack({
+				type: "error",
+				message: "Ambos campos deben ser llenados",
+			});
 		}
 	};
 
@@ -50,6 +68,9 @@ const Username = () => {
 				autoComplete="off"
 			>
 				<Typography variant="h4">Cambiar Username</Typography>
+				<Typography variant="h6">
+					Username Actual: {user.username}
+				</Typography>
 				<TextField
 					fullWidth
 					sx={{
@@ -100,6 +121,9 @@ const Username = () => {
 				<Button sx={{ mt: 3 }} type="submit" variant="contained">
 					Cambiar Username
 				</Button>
+				{snack.message && (
+					<Snackbar type={snack.type} message={snack.message} />
+				)}
 			</Box>
 		</Box>
 	);

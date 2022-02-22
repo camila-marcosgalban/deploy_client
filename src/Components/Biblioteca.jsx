@@ -18,7 +18,7 @@ const _ArrayBufferToBase64 = (buffer) => {
 
 const Biblioteca = () => {
     let user = useSelector(state => state.user)
-    let library = useSelector(state=>state.library)
+    let library = useSelector(state => state.library)
 
     const dispatch = useDispatch()
 
@@ -28,31 +28,31 @@ const Biblioteca = () => {
     }, [])
 
     return (
-       <div>
-           <Navbar/>
-           <Container maxWidth="sm" sx={{backgroundColor:'#001B44'}}>
+        <div>
+            <Navbar />
+            <Container maxWidth="sm" sx={{ backgroundColor: '#001B44' }}>
                 <Typography variant='h3' color='#357DED'>Biblioteca</Typography>
-                <List sx={{ width: '100%', maxWidth: 360, color:'#fff'}}>
+                <List sx={{ width: '100%', maxWidth: 360, color: '#fff' }}>
                     {
                         library && library.map((m, i) => {
-                              return (
-                                  <ListItem key={i} sx={{width: '100%',}}>
-                                     <ListItemAvatar>
-                                         <Avatar src={'data:image/jpeg;base64,' + _ArrayBufferToBase64(m.image)} variant="rounded" sx={{ width: 60, height: 60 }}/>
-                                     </ListItemAvatar>
-                                     <ListItemText sx={{ mx: '1rem'}}>
-                                         <Typography variant='h5'>{m.data.title}</Typography>
-                                         <Typography variant='body2'>{m.data.author.name}</Typography>
-                                         <Typography variant='body2'>{m.genre?.join(', ')}</Typography>
-                                     </ListItemText>
-                                  </ListItem>
-                              )
+                            return (
+                                <ListItem key={i} sx={{ width: '100%', }}>
+                                    <ListItemAvatar>
+                                        <Avatar src={'data:image/jpeg;base64,' + _ArrayBufferToBase64(m.image)} variant="rounded" sx={{ width: 60, height: 60 }} />
+                                    </ListItemAvatar>
+                                    <ListItemText sx={{ mx: '1rem' }}>
+                                        <Typography variant='h5'>{m.data.title}</Typography>
+                                        <Typography variant='body2'>{m.data.author.name}</Typography>
+                                        <Typography variant='body2'>{m.genre?.join(', ')}</Typography>
+                                    </ListItemText>
+                                </ListItem>
+                            )
                         })
                     }
-                       
-                    </List>
+
+                </List>
             </Container>
-       </div> 
+        </div>
     )
 }
 

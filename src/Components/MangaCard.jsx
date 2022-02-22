@@ -8,7 +8,7 @@ const _ArrayBufferToBase64 = (buffer) => {
     var byte = new Uint8Array(buffer.data);
     var length = byte.byteLength;
 
-    for(var i = 0; i < length ;i++) {
+    for (var i = 0; i < length; i++) {
         binary += String.fromCharCode(byte[i])
     }
     return window.btoa(binary)
@@ -16,8 +16,8 @@ const _ArrayBufferToBase64 = (buffer) => {
 
 
 const MangaCard = ({ id, title, author, image, genre }) => {
-    let buffer = _ArrayBufferToBase64 (image)
-    
+    let buffer = _ArrayBufferToBase64(image)
+
     return (
         <div>
             <Link to={'/detail/' + id}>

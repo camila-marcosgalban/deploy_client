@@ -39,26 +39,26 @@ export default function LoginModal() {
         }}
       >
         <Fade in={open}>
-          
+
           <Box sx={style}>
             <button
-            style={{
-              width:"15px",
-              position: "absolute",
-              right: "10px",
-              top: "3%",
-              backgroundColor: "red",
-              border: "none",
-              borderRadius: "5px",
-              color: "white",
-              paddingBottom: "3px",
-              cursor: "pointer",
-            }}
-            onClick={handleClose}
-          >
-            x
-          </button>
-            <Login handleClose={handleClose}/>
+              style={{
+                width: "15px",
+                position: "absolute",
+                right: "10px",
+                top: "3%",
+                backgroundColor: "red",
+                border: "none",
+                borderRadius: "5px",
+                color: "white",
+                paddingBottom: "3px",
+                cursor: "pointer",
+              }}
+              onClick={handleClose}
+            >
+              x
+            </button>
+            <Login handleClose={handleClose} />
           </Box>
         </Fade>
       </Modal>

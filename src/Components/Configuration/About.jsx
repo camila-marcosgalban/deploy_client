@@ -1,28 +1,47 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../Actions/index";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Snackbar, { initialSnack } from "./Snackbar";
+//CSS
 import "animate.css";
 
 const About = () => {
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state);
 	//estado
 	const [about, setAbout] = useState("");
+	const [snack, setSnack] = useState(initialSnack);
 	const handleChange = (e) => {
 		setAbout(e.target.value);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setSnack(initialSnack);
 		if (about) {
 			axios
-				.put("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateAbout", {
-					about,
+				.put(
+					`https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateAbout`,
+					{
+						about,
+					},
+					{ withCredentials: true }
+				)
+				.then((res) => {
+					setSnack({ type: "success", message: res.data.message });
+					dispatch(getUser());
 				})
-				.then((res) => alert(res.message))
 				.catch((error) => console.log(error));
+			setAbout("");
 		} else {
-			alert("Es necesario completar el About");
+			setSnack({
+				type: "error",
+				message: "Es necesario completar el About",
+			});
 		}
 	};
 	return (
@@ -34,7 +53,10 @@ const About = () => {
 			autoComplete="off"
 		>
 			<Typography variant="h4">Modificar About</Typography>
-
+			<Typography variant="h6">About Actual</Typography>
+			<Typography variant="body1" gutterBottom>
+				{user.about}
+			</Typography>
 			<TextField
 				sx={{ width: "100%", my: 3 }}
 				id="filled-textarea"
@@ -48,6 +70,9 @@ const About = () => {
 			<Button type="submit" variant="contained">
 				Modificar About
 			</Button>
+			{snack.message && (
+				<Snackbar type={snack.type} message={snack.message} />
+			)}
 		</Box>
 	);
 };
