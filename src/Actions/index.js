@@ -338,7 +338,7 @@ export const UserLogout = () => {
 
 
 //Traer id desde el back
-const getUser = () => {
+export const getUser = () => {
     return async (dispatch) => {
         try {
             const request = await axios({
