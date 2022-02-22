@@ -1,10 +1,10 @@
 import { React, useEffect } from 'react'
-import { Container, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, LinearProgress } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Navbar from './Navbar'
 import { useDispatch, useSelector } from 'react-redux';
-import { getMangaDetailWishList, getWishList } from '../Actions';
+import { getWishList } from '../Actions';
 
 const axios = require("axios");
 
@@ -26,25 +26,24 @@ const Wishlist = () => {
     const dispatch = useDispatch()
 
     let handleDeleteManga = (id) => {
-        axios.put('https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/lists?list=wishList', { mangaId: id }, { withCredentials: true })
+        axios.put('http://localhost:3001/api/users/user/lists?list=wishList', { mangaId: id }, { withCredentials: true })
             .then(data => dispatch(getWishList()))
             .catch(error => console.log(error.response))
     }
 
     useEffect(() => {
         dispatch(getWishList())
-        wishlist.map(m => dispatch(getMangaDetailWishList(m)))
     }, [dispatch])
 
 
     return (
         <div>
             <Navbar />
-            <Container maxWidth="sm" sx={{ backgroundColor: '#001B44' }}>
-                <Typography variant='h3' color='#357DED'>My Wishlist</Typography>
+            <Container maxWidth="sm" sx={{ backgroundColor: '#001B44', borderRadius: '5%', height: '35rem', width: '100%', padding: 0, my: '1rem' }}>
+                <Typography variant='h3' color='#357DED' sx={{ padding: '1rem' }}>My Wishlist</Typography>
                 <List sx={{ width: '100%', color: '#fff' }} >
                     {
-                        wishlist && wishlist.data?.map((m, i) => {
+                        wishlist.data ? wishlist.data?.map((m, i) => {
                             return (
                                 <ListItem key={i} sx={{ width: '100%', }}>
                                     <ListItemAvatar>
@@ -59,8 +58,10 @@ const Wishlist = () => {
                                         <DeleteIcon />
                                     </IconButton>
                                 </ListItem>
+
                             )
-                        })
+                        }) :
+                            <LinearProgress sx={{ height: '0.5rem ' }} />
                     }
                 </List>
             </Container>

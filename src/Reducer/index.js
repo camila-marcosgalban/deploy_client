@@ -43,6 +43,7 @@ import {
     GET_PANEL_MANGAS,
     BUY_CHAPTERS,
     SEE_COMMENTS,
+    // GET_PREFERENCE_ID
 } from "../Actions";
 
 const initialState = {
@@ -182,11 +183,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 userInfo: payload
-            }
-        case GET_DETAIL_WISHLIST:
-            return  {
-                ...state,
-                wishlist: state.wishlist.concat(payload)
             }
         case GET_DETAIL_LIBRARY:
             return {

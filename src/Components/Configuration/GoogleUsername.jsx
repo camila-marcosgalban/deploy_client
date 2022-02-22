@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {useDispatch, useSelector} from 'react-redux';
-import {getUser} from '../../Actions/index';
-import Snackbar, {initialSnack} from './Snackbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../Actions/index';
+import Snackbar, { initialSnack } from './Snackbar';
 //MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import "animate.css";
 
 const GoogleUsername = () => {
-const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state);
 	const [newUsername, setUsername] = useState("");
 	const [snack, setSnack] = useState(initialSnack);
@@ -25,18 +25,18 @@ const dispatch = useDispatch();
 		if (newUsername) {
 			axios
 				.put(
-					`http://localhost:3001/api/profile/updateUsername`,
+					`https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateUsername`,
 					{ newUsername },
 					{ withCredentials: true }
 				)
-				.then((res) =>{
-					setSnack({type: "success", message: res.data.message})
+				.then((res) => {
+					setSnack({ type: "success", message: res.data.message })
 					dispatch(getUser());
 				})
 				.catch((error) => console.log(error));
-				setUsername("");
+			setUsername("");
 		} else {
-			setSnack({type:"error", message: "Introduzca un username"})
+			setSnack({ type: "error", message: "Introduzca un username" })
 		}
 	};
 
