@@ -165,7 +165,7 @@ const _ArrayBufferToBase64 = (buffer) => {
   // );
   // };
 
-  function Profile(props) {
+  export default function Profile(props) {
     //Redux
     const { user } = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -430,5 +430,3 @@ const _ArrayBufferToBase64 = (buffer) => {
     );
   }
 }
-
-export default Profile;
