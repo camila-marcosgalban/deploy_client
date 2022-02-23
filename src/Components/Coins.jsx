@@ -184,7 +184,7 @@ export default function Coins() {
             setTimeout(() => {
                 setLoading(false)
                 setBuy(true)
-                user.coins = coins
+                user.coins = coins.coins
             }, 1000)
         }
     }, [bought])
