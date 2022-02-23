@@ -229,7 +229,7 @@ export default function Coins() {
                             mb: "1rem",
                         }}
                     >
-                        <Typography variant="h6">Mis monedas: {user.coins}</Typography>
+                        <Typography variant="h6">Mis monedas: {coins}</Typography>
                         <Button variant="contained" onClick={handleClickOpen}>
                             Comprar monedas
                         </Button>
