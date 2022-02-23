@@ -297,7 +297,7 @@ export let getCurrentUser = (form) => {
     /*return async (dispatch) => {
         try {
             const request = await axios.post(
-                `http://localhost:3001/api/auth/local/login`,
+                `https://deploy-back-mangaka-v2.herokuapp.com/`,
                 form,
                 {
                     headers: {
@@ -662,7 +662,7 @@ export let buyCoins = (payload) => {
 //         try {
 //             console.log(payload);
 //             let getPreferenceId = await axios.get(
-//                 `http://localhost:3001/api/coins/buy`
+//                 `https://deploy-back-mangaka-v2.herokuapp.com/api/coins/buy`
 //             );
 //             console.log(getPreferenceId)
 //             return dispatch({

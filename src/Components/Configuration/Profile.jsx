@@ -173,7 +173,7 @@ function Profile(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/profile/", { withCredentials: true })
+      .get("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/", { withCredentials: true })
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
   }, []);
@@ -190,7 +190,7 @@ function Profile(props) {
     formData.append("avatar", e.target.files[0]);
     setSnack(initialSnack);
     axios
-      .put("http://localhost:3001/api/profile/updateAvatar", formData, {
+      .put("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/updateAvatar", formData, {
         withCredentials: true,
       })
       .then((res) => {

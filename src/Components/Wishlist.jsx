@@ -26,7 +26,7 @@ const Wishlist = () => {
     const dispatch = useDispatch()
 
     let handleDeleteManga = (id) => {
-        axios.put('http://localhost:3001/api/users/user/lists?list=wishList', { mangaId: id }, { withCredentials: true })
+        axios.put('https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/lists?list=wishList', { mangaId: id }, { withCredentials: true })
             .then(data => dispatch(getWishList()))
             .catch(error => console.log(error.response))
     }

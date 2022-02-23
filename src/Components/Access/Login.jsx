@@ -70,7 +70,7 @@ export default function Login({ handleClose }) {
 	};
 	//inicio de sesión con google (redireccionamiento)
 	const googleLogin = () => {
-		window.open("http://localhost:3001/api/auth/google", "_self");
+		window.open("https://deploy-back-mangaka-v2.herokuapp.com/api/auth/google", "_self");
 	};
 	//control de los input
 	const handleChange = (e) => {
@@ -83,7 +83,7 @@ export default function Login({ handleClose }) {
 		setSnack(initialSnack);
 		if (form.username && form.password) {
 			axios
-				.post(`http://localhost:3001/api/auth/local/login`, form, {
+				.post(`https://deploy-back-mangaka-v2.herokuapp.com/api/auth/local/login`, form, {
 					headers: {
 						"Content-Type": "application/json",
 					},
