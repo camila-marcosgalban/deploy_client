@@ -245,8 +245,7 @@ export let postChapters = (payload) => {
             console.log(payload);
             let chapters = await axios.post(
                 BASE_URL + 'api/chapters',
-                payload,
-                { withCredentials: true }
+                payload
             );
 
             return dispatch({
