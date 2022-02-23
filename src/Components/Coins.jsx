@@ -100,7 +100,7 @@ export default function Coins() {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacks());
-        dispatch(getCurrentUser());
+        // dispatch(getCurrentUser());
         dispatch(getBuyOrders());
         dispatch(getSellOrders());
         dispatch(getBuyerOrder());
