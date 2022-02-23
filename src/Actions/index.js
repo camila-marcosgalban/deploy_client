@@ -1,5 +1,3 @@
-import { AllMangas, Chapters, Directory, FilterByAuthor, Genres, LoginGoogle, LoginLocal, LogOut, Post, recentMangas, SearchManga, Detail, Paginado, GetChapters, GetUserInfo, getChapterById, wishlist, deleteWishlist, addWishlist, getPacksById} from "./constants";
-
 export const MANGAS_TO_DB = "MANGAS_TO_DB";
 export const GET_ALL_MANGAS = "GET_ALL_MANGAS";
 export const GET_GENRES = "GET_GENRES";
@@ -35,18 +33,18 @@ export const BUY_COINS = "BUY_COINS";
 export const GET_CHAPTER = "GET_CHAPTER";
 // export const GET_PREFERENCE_ID = "GET_PREFERENCE_ID"
 export const GET_PREFERENCE_ID = "GET_PREFERENCE_ID";
-export const GET_AUTHOR_DETAILS ='GET_AUTHOR_DETAILS';
-export const FAVORITE = 'FAVORITE';
-export const GET_POPULAR_AUTHORS = 'GET_POPULAR_AUTHORS'
-export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
-export const GET_BUY_ORDERS = 'GET_BUY_ORDERS'
-export const GET_SELL_ORDERS = 'GET_SELL_ORDERS'
-export const GET_PANEL_MANGAS  = 'GET_PANEL_MANGAS'
-export const BUY_CHAPTERS  =  'BUY_CHAPTERS'
-export const GET_SELLER_ORDER = 'GET_SELLER_ORDER'
-export const GET_BUYER_ORDER = 'GET_BUYER_ORDER'
-export const CREATE_COMMENT = 'CREATE_COMMENT'
-export const SEE_COMMENTS = 'SEE_COMMENTS'
+export const GET_AUTHOR_DETAILS = "GET_AUTHOR_DETAILS";
+export const FAVORITE = "FAVORITE";
+export const GET_POPULAR_AUTHORS = "GET_POPULAR_AUTHORS";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const GET_BUY_ORDERS = "GET_BUY_ORDERS";
+export const GET_SELL_ORDERS = "GET_SELL_ORDERS";
+export const GET_PANEL_MANGAS = "GET_PANEL_MANGAS";
+export const BUY_CHAPTERS = "BUY_CHAPTERS";
+export const GET_SELLER_ORDER = "GET_SELLER_ORDER";
+export const GET_BUYER_ORDER = "GET_BUYER_ORDER";
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export const SEE_COMMENTS = "SEE_COMMENTS";
 
 const axios = require("axios");
 const BASE_URL = 'https://deploy-back-mangaka-v2.herokuapp.com/';
@@ -55,7 +53,7 @@ export let mangasToDb = () => {
     return async (dispatch) => {
         try {
             let mangas = await axios.get(
-                AllMangas
+                BASE_URL + 'api/mangas/allMangas'
             );
             return dispatch({
                 type: MANGAS_TO_DB,
@@ -71,7 +69,7 @@ export let getAllMangas = () => {
     return async (dispatch) => {
         try {
             let allMangas = await axios.get(
-                Directory
+                BASE_URL + 'api/mangas/directory'
             );
             return dispatch({
                 type: GET_ALL_MANGAS,
@@ -87,7 +85,7 @@ export let getGenres = () => {
     return async (dispatch) => {
         try {
             let allGenres = await axios.get(
-                Genres
+                BASE_URL + 'api/mangas/listOfGenres'
             );
             return dispatch({
                 type: GET_GENRES,
@@ -103,7 +101,7 @@ export let getRecentMangas = () => {
     return async (dispatch) => {
         try {
             let allMangas = await axios.get(
-                recentMangas
+                BASE_URL + 'api/mangas/recentMangas'
             );
             return dispatch({
                 type: RECENT_MANGAS,
@@ -114,12 +112,12 @@ export let getRecentMangas = () => {
         }
     };
 };
-// falta :id
+
 export let getMangaDetail = (payload) => {
     return async (dispatch) => {
         try {
             let mangaDetail = await axios.get(
-                Detail + payload
+                BASE_URL + `api/mangas/manga/${payload}`
             );
             return dispatch({
                 type: GET_DETAIL,
@@ -136,8 +134,9 @@ export let postManga = (payload) => {
         try {
             console.log(payload);
             let manga = await axios.post(
-                Post,
-                payload
+                BASE_URL + 'api/mangas',
+                payload,
+                { withCredentials: true }
             );
             return dispatch({
                 type: POST_MANGA,
@@ -166,7 +165,7 @@ export let filterMangasByAuthor = (payload) => {
     return async (dispatch) => {
         try {
             let filteredMangas = await axios.get(
-                FilterByAuthor + payload
+                BASE_URL +  `api/mangas/byAuthor?author=${payload}`
             );
             return dispatch({
                 type: FILTRO_AUTOR,
@@ -195,7 +194,7 @@ export let searchManga = (payload) => {
     return async (dispatch) => {
         try {
             let search = await axios.get(
-                SearchManga + payload
+                BASE_URL + `api/mangas/Search?title=${payload}`
             );
             return dispatch({
                 type: SEARCH_MANGA,
@@ -211,7 +210,7 @@ export let getMangasPreview = () => {
     return async (dispatch) => {
         try {
             let search = await axios.get(
-                SearchManga
+                BASE_URL + 'api/mangas/Search?title='
             );
             return dispatch({
                 type: GET_MANGAS_PREVIEW,
@@ -226,7 +225,7 @@ export let paginado = ({ page, genre, order }) => {
     return async (dispatch) => {
         try {
             let mangas = await axios.get(
-                `${Paginado + page}&filter=${
+                BASE_URL + `api/mangas/directory?page=${page}&filter=${
                     genre ? genre : ""
                 }&order=${order ? order : "asc"}&tags=title`
             );
@@ -245,16 +244,17 @@ export let postChapters = (payload) => {
         try {
             console.log(payload);
             let chapters = await axios.post(
-                Chapters,
-                payload
+                BASE_URL + 'api/chapters',
+                payload,
+                { withCredentials: true }
             );
-            
+
             return dispatch({
                 type: POST_CHAPTERS,
                 payload: chapters.data,
             });
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
         }
     };
 };
@@ -273,24 +273,31 @@ export let postChapters = (payload) => {
 //     }
 // }
 
-// export let getLibrary = (payload) => {
-//     return async (dispatch) => {
-//         try {
-//             let mangas = await axios.get(``)
-//             return dispatch({
-//                 type: GET_WISHLIST,
-//                 payload: mangas.data
-//             })
-//         } catch(error) {
-//             console.log(error)
-//         }
-//     }
-// }
-export let getCurrentUser = (form) => {
+export let getWishList = (payload) => {
     return async (dispatch) => {
         try {
+            let mangas = await axios.get(
+                BASE_URL + `api/profile/wishlist`,
+                { withCredentials: true }
+            );
+            return dispatch({
+                type: GET_WISHLIST,
+                payload: mangas.data,
+            });
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+};
+export let getCurrentUser = (form) => {
+    return {
+        type: CURRENT_USER,
+        payload: form,
+    }
+    /*return async (dispatch) => {
+        try {
             const request = await axios.post(
-                LoginLocal,
+                `http://localhost:3001/api/auth/local/login`,
                 form,
                 {
                     headers: {
@@ -305,14 +312,24 @@ export let getCurrentUser = (form) => {
             );
 
             const response = await request.data;
+            
+            if (response.msg === "usuario no logueado") {
+                alert("Usuario no logueado")
+                localStorage.clear();
+                return dispatch({
+                    type: CURRENT_USER,
+                    payload: null,
+                });
+            }
+            alert("Login Exitoso");
             localStorage.setItem("user", JSON.stringify(response));
             const user = JSON.parse(localStorage.getItem("user"));
-
             return dispatch({ type: CURRENT_USER, payload: user });
         } catch (error) {
+            alert("Error al iniciar Sesión");
             console.log(error.message);
         }
-    };
+    };*/
 };
 
 export const UserLogout = () => {
@@ -321,7 +338,7 @@ export const UserLogout = () => {
             const request = await axios({
                 method: "GET",
                 withCredentials: true,
-                url: LogOut,
+                url: BASE_URL +  "api/auth/logout",
             });
             const response = await request.data;
             console.log(response);
@@ -331,30 +348,31 @@ export const UserLogout = () => {
                 payload: null,
             });
         } catch (e) {
-            console.log(e.message);
+            console.log(e);
         }
     };
 };
 
-
-//Traer id desde el back
+//Verifica si el usuario está conectado
 export const getUser = () => {
     return async (dispatch) => {
         try {
-            const request = await axios({
-                method: "GET",
-                withCredentials: true,
-                url: "https://deploy-back-mangaka-v2.herokuapp.com/api/users/currentUser",
+            const request = await axios.get(
+                BASE_URL + "api/users/currentUser",
+                { withCredentials: true }
+            );
+            const response = await request.data;
+            localStorage.setItem("user", JSON.stringify(response));
+            const user = JSON.parse(localStorage.getItem("user"));
+            return dispatch({
+                type: CURRENT_USER,
+                payload: user,
             });
-            const response = request.data;
-            console.log(response.data);
-            // return dispatch({})
-            }catch(e){
-                console.log(e)
-            }
-}
-}
-
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
 
 export const getGoogleUser = () => {
     return async (dispatch) => {
@@ -362,12 +380,11 @@ export const getGoogleUser = () => {
             const request = await axios({
                 method: "GET",
                 withCredentials: true,
-                url: BASE_URL + 'api/auth/google/response',
+                url: BASE_URL + "api/auth/google/response",
             });
-            console.log(request)
             const response = await request.data;
-            console.log(response)
             if (response.msg === "usuario no logueado") {
+                localStorage.clear();
                 return dispatch({
                     type: CURRENT_USER,
                     payload: null,
@@ -388,83 +405,27 @@ export let getChapters = (payload) => {
     return async (dispatch) => {
         try {
             let allChapters = await axios.get(
-                GetChapters + payload
+                BASE_URL + `api/chapters/chapter/getchapter/${payload} `
             );
             return dispatch({
                 type: GET_ALL_CHAPTERS,
                 payload: allChapters.data,
+                withCredentials: true,
             });
         } catch (error) {
             console.log(error);
         }
     };
-}
+};
 export let getUserInfo = (payload) => {
     return async (dispatch) => {
         try {
-            let user = await axios.get(GetUserInfo + payload)
-            return dispatch({
-                type: GET_USER_INFO,
-                payload: user.data
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
-
-export let getWishList = (payload) => {
-    return async (dispatch) => {
-        try {
-            let mangas = await axios.get(wishlist, { withCredentials: true })
-            return dispatch({
-                type: GET_WISHLIST,
-                payload: mangas.data
-            })
-        } catch(error) {
-            console.log(error.response)
-        }
-    }
-}
-
-export let deleteWishlistManga = (payload) => {
-    return async (dispatch) => {
-        try {
-            console.log(payload)
-            let manga = axios.put(deleteWishlist, {mangaId: payload}, { withCredentials: true })
-            return dispatch({
-                type: DELETE_WISHLIST_MANGA,
-            })
-        } catch(error) {
-            console.log(error)
-        }
-    }
-}
-
-export let addMangaWishList = (payload) => {
-    return async (dispatch) => {
-        try {
-            console.log(payload)
-            let manga = axios.put(addWishlist, payload, { withCredentials: true })
-            return dispatch({
-                type: ADD_MANGA_WISHLIST,
-                payload: manga.data
-            })
-        } catch(error) {
-            console.log(error.response)
-        }
-    }
-}
-
-export let getMangaDetailWishList = (payload) => {
-    return async (dispatch) => {
-        try {
-            let mangaDetail = await axios.get(
-                Detail + payload
+            let user = await axios.get(
+                BASE_URL + `api/users/user/${payload}`
             );
             return dispatch({
-                type: GET_DETAIL_WISHLIST,
-                payload: mangaDetail.data,
+                type: GET_USER_INFO,
+                payload: user.data,
             });
         } catch (error) {
             console.log(error);
@@ -472,11 +433,12 @@ export let getMangaDetailWishList = (payload) => {
     };
 };
 
+
 export let getMangaDetailLibrary = (payload) => {
     return async (dispatch) => {
         try {
             let mangaDetail = await axios.get(
-                Detail + payload
+                BASE_URL + `api/mangas/manga/${payload}`
             );
             return dispatch({
                 type: GET_DETAIL_LIBRARY,
@@ -491,52 +453,54 @@ export let getMangaDetailLibrary = (payload) => {
 export let getPopularMangas = () => {
     return async (dispatch) => {
         try {
-            let mangas = await axios.get(getPopularMangas)
+            let mangas = await axios.get(
+                BASE_URL + "api/mangas/popularMangas"
+            );
             return dispatch({
                 type: GET_POPULAR_MANGAS,
-                payload: mangas.data
-            })
-        } catch(error) {
-            console.log(error)
+                payload: mangas.data,
+            });
+        } catch (error) {
+            console.log(error);
         }
-    }
-}
+    };
+};
 
 export let popularAuthors = () => {
     return async (dispatch) => {
-        try{ 
-            let authors = await axios.get()
+        try {
+            let authors = await axios.get(
+                BASE_URL + "api/users/popularAuthors"
+            );
             return dispatch({
-                type: GET_AUTHORS,
-                payload: authors.data
-            })
-        } catch(error) {
-            // console.log(error)
+                type: GET_POPULAR_AUTHORS,
+                payload: authors.data,
+            });
+        } catch (error) {
+            console.log(error);
         }
-    }
-}
+    };
+};
 
 export let changeShow = () => {
     return async (dispatch) => {
         try {
-            return dispatch( {
-                type: CHANGE_SHOW
-            })
-        } catch(error) {
-            console.log(error)
+            return dispatch({
+                type: CHANGE_SHOW,
+            });
+        } catch (error) {
+            console.log(error);
         }
-    }
-}
+    };
+};
 
 export let getAllUsers = () => {
     return async (dispatch) => {
         try {
-            let users = await axios.get(
-                'https://deploy-back-mangaka-v2.herokuapp.com/api/users', {withCredentials: true}
-            );
+            let users = await axios.get(BASE_URL + "api/users");
             return dispatch({
                 type: GET_USERS,
-                payload: users.data
+                payload: users.data,
             });
         } catch (error) {
             console.log(error);
@@ -548,8 +512,11 @@ export let setActive = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
+            let body = {};
             let setActive = await axios.put(
-                 `https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setActive/${payload}`, { withCredentials: true}
+                BASE_URL + `api/users/user/setActive/${payload}`,
+                body,
+                { withCredentials: true }
             );
             return dispatch({
                 type: SET_ACTIVE,
@@ -565,8 +532,11 @@ export let setActiveManga = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
+            let body = {};
             let setActiveManga = await axios.put(
-                `https://deploy-back-mangaka-v2.herokuapp.com/api/mangas/manga/setActive/${payload}`, { withCredentials: true}
+                BASE_URL + `api/mangas/manga/setActive/${payload}`,
+                body,
+                { withCredentials: true }
             );
             return dispatch({
                 type: SET_ACTIVE_MANGA,
@@ -582,8 +552,11 @@ export let setAdmin = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
+            let body = {};
             let setAdmin = await axios.put(
-                `https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/setAdmin/${payload}`, { withCredentials: true}
+                BASE_URL + `api/users/user/setAdmin/${payload}`,
+                body,
+                { withCredentials: true }
             );
             return dispatch({
                 type: SET_ADMIN,
@@ -595,15 +568,53 @@ export let setAdmin = (payload) => {
     };
 };
 
+export let deleteWishlistManga = (payload) => {
+    return async (dispatch) => {
+        try {
+            console.log(payload);
+            let manga = axios.put(
+                BASE_URL + `api/users/user/lists?list=wishList`,
+                { mangaId: payload },
+                { withCredentials: true }
+            );
+            return dispatch({
+                type: DELETE_WISHLIST_MANGA,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export let addMangaWishList = (payload) => {
+    return async (dispatch) => {
+        try {
+            console.log(payload);
+            let manga = axios.put(
+                BASE_URL + "api/users/user/lists?list=wishList",
+                payload,
+                { withCredentials: true }
+            );
+            return dispatch({
+                type: ADD_MANGA_WISHLIST,
+                payload: manga.data,
+            });
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+};
+
 export let postCheckout = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
             let checkout = await axios.post(
-                postCheckout,
-                payload
+                BASE_URL + `api/coins/sell`,
+                payload,
+                { withCredentials: true }
             );
-            
+
             return dispatch({
                 type: POST_CHECKOUT,
                 payload: checkout.data,
@@ -613,13 +624,11 @@ export let postCheckout = (payload) => {
         }
     };
 };
-                
+
 export let getPacks = () => {
     return async (dispatch) => {
         try {
-            let packs = await axios.get(
-                'https://deploy-back-mangaka-v2.herokuapp.com/api/coins/pack'
-            );
+            let packs = await axios.get(BASE_URL + "api/coins/pack");
             return dispatch({
                 type: GET_PACKS,
                 payload: packs.data,
@@ -635,9 +644,8 @@ export let buyCoins = (payload) => {
         try {
             console.log(payload);
             let buyCoins = await axios.post(
-                'https://deploy-back-mangaka-v2.herokuapp.com/api/coins/buy',
-                payload,
-                    {withCredentials: true},
+                BASE_URL + `api/coins/buy`,
+                payload
             );
             return dispatch({
                 type: BUY_COINS,
@@ -654,7 +662,7 @@ export let buyCoins = (payload) => {
 //         try {
 //             console.log(payload);
 //             let getPreferenceId = await axios.get(
-//                 `https://deploy-back-mangaka-v2.herokuapp.com/api/coins/buy`
+//                 `http://localhost:3001/api/coins/buy`
 //             );
 //             console.log(getPreferenceId)
 //             return dispatch({
@@ -671,7 +679,7 @@ export let getChapter = (payload) => {
     return async (dispatch) => {
         try {
             let getChapter = await axios.get(
-                getChapter + payload
+                BASE_URL + `api/chapters/chapter/images/${payload}`
             );
             return dispatch({
                 type: GET_CHAPTER,
@@ -682,33 +690,37 @@ export let getChapter = (payload) => {
         }
     };
 };
-
 //-------------------- DETALLES DE AUTOR -------------------------//
 export let getAuthorDetail = (id) => {
     return async (dispatch) => {
         try {
-            let authorDetail = await axios(BASE_URL + `api/users/user/${id}`)
+            let authorDetail = await axios(
+                BASE_URL + `api/users/user/${id}`
+            );
             return dispatch({
-                type: 'GET_AUTHOR_DETAILS',
-                payload: authorDetail.data
-            })
-        } catch (error){
-            console.log(error.msg)
+                type: "GET_AUTHOR_DETAILS",
+                payload: authorDetail.data,
+            });
+        } catch (error) {
+            console.log(error.msg);
         }
     };
 };
 
 //------------------------- FAVORITOS -------------------------------//
-export let favorite = () =>{
+export let favorite = () => {
     return async (dispatch) => {
         try {
-            let favorite = await axios.get(BASE_URL + `api/profile/favorites`, {withCredentials:true})
+            let favorite = await axios.get(
+                BASE_URL + `api/profile/favorites`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'FAVORITE',
-                payload: favorite.data
+                type: "FAVORITE",
+                payload: favorite.data,
             });
-        } catch (error){
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 };
@@ -717,69 +729,82 @@ export let favorite = () =>{
 export let removeFavorite = (id) => {
     return (dispatch) => {
         return dispatch({
-            type: 'REMOVE_FAVORITE',
-            payload: id
+            type: "REMOVE_FAVORITE",
+            payload: id,
         });
-    }
-}
+    };
+};
 
-export let getBuyOrders = () =>{
+export let getBuyOrders = () => {
     return async (dispatch) => {
         try {
-            let getBuyOrders = await axios.get(BASE_URL + `api/coins/getBuyOrders`, {withCredentials:true})
+            let getBuyOrders = await axios.get(
+                BASE_URL + `api/coins/getBuyOrders`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'GET_BUY_ORDERS',
-                payload: getBuyOrders.data
+                type: "GET_BUY_ORDERS",
+                payload: getBuyOrders.data,
             });
-        } catch (error){
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 };
 
-export let getSellOrders = () =>{
+export let getSellOrders = () => {
     return async (dispatch) => {
         try {
-            let getSellOrders = await axios.get(BASE_URL + `api/coins/getSellOrders`, {withCredentials:true})
+            let getSellOrders = await axios.get(
+                BASE_URL + `api/coins/getSellOrders`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'GET_SELL_ORDERS',
-                payload: getSellOrders.data
+                type: "GET_SELL_ORDERS",
+                payload: getSellOrders.data,
             });
         } catch (error) {
-            console.log(error.response)
+            console.log(error.response);
         }
-    }
-}
-                
+    };
+};
+
 //-------------------- CREAR COMENTARIOS ---------------------------------//
 export let createComment = (payload) => {
     return async function (dispatch) {
-        console.log(payload,'pay')
-        try{
-            const comments = await axios.post(BASE_URL + `api/comments/addComent`, payload , {withCredentials:true});
-            console.log(comments,'comentarios')
+        console.log(payload, "pay");
+        try {
+            const comments = await axios.post(
+                BASE_URL + `api/comments/addComent`,
+                payload,
+                { withCredentials: true }
+            );
+            console.log(comments, "comentarios");
             dispatch({
                 type: "CREATE_COMMENT",
-                payload: comments.data 
+                payload: comments.data,
             });
         } catch (error) {
-            console.log(error.response)
+            console.log(error.response);
         }
-    }
-}
+    };
+};
 
 //--------------------- ver comentarios -------------------------------//
 
 export let verComentarios = (id) => {
     return async function (dispatch) {
         try {
-            let allComments = await axios.get(BASE_URL + `api/comments/getComments/${id}`, {withCredentials:true})
+            let allComments = await axios.get(
+                BASE_URL + `api/comments/getComments/${id}`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'SEE_COMMENTS',
-                payload: allComments.data
+                type: "SEE_COMMENTS",
+                payload: allComments.data,
             });
-        } catch (error){
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 };
@@ -788,8 +813,9 @@ export let getPanelMangas = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
-            let getPanelMangas = await axios(BASE_URL + 
-                `api/mangas//panel/allMangas`,  { withCredentials: true}
+            let getPanelMangas = await axios(
+                BASE_URL + `api/mangas//panel/allMangas`,
+                { withCredentials: true }
             );
             return dispatch({
                 type: GET_PANEL_MANGAS,
@@ -805,8 +831,8 @@ export let buyChapters = (payload) => {
     return async (dispatch) => {
         try {
             console.log(payload);
-            let buyChapters = await axios.post(BASE_URL + 
-                `api/buyChapter/buyChapter`,
+            let buyChapters = await axios.post(
+                BASE_URL + `api/buyChapter/buyChapter`,
                 payload,
                 { withCredentials: true }
             );
@@ -820,30 +846,36 @@ export let buyChapters = (payload) => {
     };
 };
 
-export let getBuyerOrder = () =>{
+export let getBuyerOrder = () => {
     return async (dispatch) => {
         try {
-            let getBuyerOrder = await axios.get(BASE_URL + `api/buyChapter/getBuyerOrder`, {withCredentials:true})
+            let getBuyerOrder = await axios.get(
+                BASE_URL + `api/buyChapter/getBuyerOrder`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'GET_BUYER_ORDER',
-                payload: getBuyerOrder.data
+                type: "GET_BUYER_ORDER",
+                payload: getBuyerOrder.data,
             });
-        } catch (error){
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 };
 
-export let getSellerOrder = () =>{
+export let getSellerOrder = () => {
     return async (dispatch) => {
         try {
-            let getSellerOrder = await axios.get(BASE_URL + `api/buyChapter/getSellerOrder`, {withCredentials:true})
+            let getSellerOrder = await axios.get(
+                BASE_URL + `api/buyChapter/getSellerOrder`,
+                { withCredentials: true }
+            );
             return dispatch({
-                type: 'GET_SELLER_ORDER',
-                payload: getSellerOrder.data
+                type: "GET_SELLER_ORDER",
+                payload: getSellerOrder.data,
             });
-        } catch (error){
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 };
