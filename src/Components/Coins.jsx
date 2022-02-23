@@ -106,7 +106,7 @@ export default function Coins() {
         dispatch(getBuyerOrder());
         dispatch(getSellerOrder());
         let getCoins = async () => {
-            let coins = await axios("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/coins", { withCredentials: true });
+            let coins = await axios.get("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/coins", { withCredentials: true });
             console.log(coins.data);
             setCoins(coins.data);
         };
