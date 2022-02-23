@@ -108,7 +108,7 @@ export default function Coins() {
         let getCoins = async () => {
             let coins = await axios.get("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/coins", { withCredentials: true });
             console.log(coins.data);
-            setCoins(coins.data);
+            setCoins(coins.data.coins);
         };
         getCoins();
     }, [dispatch]);
@@ -184,7 +184,6 @@ export default function Coins() {
             setTimeout(() => {
                 setLoading(false)
                 setBuy(true)
-                user.coins = coins.coins
             }, 1000)
         }
     }, [bought])
