@@ -52,7 +52,7 @@ const Banner = (props) => {
 const Item = ({ img, link }) => {
     return (
         <div>
-            <Box sx={{ md: { xs: '20%', md: '40%', lg: '100%' } }}>
+            <Box sx={{ md: { xs: '20%', md: '40%', lg: '100%' }, height: '220px' }}>
                 <Link to={link} >
 
                     <img className='Imagen' src={img} alt="imagen" />
