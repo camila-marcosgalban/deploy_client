@@ -39,7 +39,7 @@ import {
 } from "@mui/material";
 import {
     buyCoins,
-    getCurrentUser,
+    getUser,
     getPacks,
     getPreferenceId,
     getSellOrders,
