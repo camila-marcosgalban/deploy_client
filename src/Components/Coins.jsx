@@ -115,7 +115,6 @@ export default function Coins() {
 
     let packs = useSelector((state) => state.getPacks);
     let user = useSelector((state) => state.user);
-    user.coins = coins;
     const data2 = useSelector((state) => state.preferenceId);
     // console.log(data2);
     // console.log(packs);
@@ -185,6 +184,7 @@ export default function Coins() {
             setTimeout(() => {
                 setLoading(false)
                 setBuy(true)
+                user.coins = coins
             }, 1000)
         }
     }, [bought])
