@@ -57,6 +57,7 @@ const initialState = {
     filters: {
         genre: "",
         order: "",
+        tag: ""
     },
     library: [],
     wishlist: [],
@@ -94,14 +95,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 allMangas: payload
             };
-        case GET_ALL_MANGAS:
-            return {
-                ...state,
-                allMangas: payload,
-                // filters: {
-                //     genre: '',
-                // }
-            };
+            case GET_ALL_MANGAS:
+                return {
+                    ...state,
+                    allMangas: payload,
+                    filters: {
+                        genre: '',
+                        order: '',
+                        tag: ''
+                    }
+                };
         case GET_GENRES:
             return {
                 ...state,
@@ -140,15 +143,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 allMangas: payload,
             };
-        case ORDER:
-            return {
-                ...state,
-                allMangas: payload,
-                filters: {
-                    order: payload,
-                    genre: state.filters.genre,
-                },
-            };
+            case ORDER:
+                return {
+                    ...state,
+                    filters: {
+                        order: payload.order,
+                        genre: state.filters.genre,
+                        tag:payload.tag
+                    },
+                };
         case SEARCH_MANGA:
             return {
                 ...state,

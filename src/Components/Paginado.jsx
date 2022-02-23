@@ -13,7 +13,7 @@ const Paginado = ({ total }) => {
         e.preventDefault()
         setPage(e.target.textContent)
         console.log(filter)
-        dispatch(paginado({ page: e.target.textContent, genre: filter.genre, order: filter.order }))
+        dispatch(paginado({ page: e.target.textContent, genre: filter.genre, order: filter.order, tag: filter.tag }))
     }
 
     return (

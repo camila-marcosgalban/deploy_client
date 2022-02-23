@@ -31,8 +31,8 @@ const Filters = () => {
     let handleOrder = (e) => {
         e.preventDefault()
         if (show) dispatch(changeShow())
-        dispatch(orderMangas(e.target.value))
-        dispatch(paginado({ page: 1, order: e.target.value, genre: filters.genre }))
+        dispatch(orderMangas({ order: e.target.value, tag: 'title' }))
+        dispatch(paginado({ page: 1, order: e.target.value, genre: filters.genre, tag: 'title' }))
     }
 
     let handleFilterAuthor = (e) => {

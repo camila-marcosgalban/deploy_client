@@ -221,13 +221,13 @@ export let getMangasPreview = () => {
         }
     };
 };
-export let paginado = ({ page, genre, order }) => {
+export let paginado = ({ page, genre, order, tag }) => {
     return async (dispatch) => {
         try {
             let mangas = await axios.get(
                 BASE_URL + `api/mangas/directory?page=${page}&filter=${
                     genre ? genre : ""
-                }&order=${order ? order : "asc"}&tags=title`
+                }&order=${order ? order : "asc"}${tag ? `&tags=${tag}` : ''}`
             );
             return dispatch({
                 type: PAGINADO_PAGE,
@@ -245,7 +245,8 @@ export let postChapters = (payload) => {
             console.log(payload);
             let chapters = await axios.post(
                 BASE_URL + 'api/chapters',
-                payload
+                payload,
+                { withCredentials: true }
             );
 
             return dispatch({
