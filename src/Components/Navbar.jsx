@@ -98,7 +98,7 @@ export default function NavBar() {
   }, []);
 
   useEffect(() => {
-    user || dispatch(getUser());
+    dispatch(getUser());
   }, []);
 
   //local state
