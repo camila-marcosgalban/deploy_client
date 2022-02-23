@@ -1,188 +1,220 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button ,Select,MenuItem , Input} from '@mui/material';
+import { Button, Select, MenuItem, Input } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { postManga, getAllMangas, getGenres } from '../Actions/index';
-import Navbar from './Navbar';
-import { Link } from '@mui/material';
+import { postManga, getAllMangas } from '../Actions/index';
 
+
+function validate(input) {
+  const error = {};
+  const { title, synopsis, image, genres } = input;
+
+  error.title = title.length > 3 && isNaN(title) ? null : 'Ingrese titulo,sólo letras';
+  error.image = image ? null : 'Ingrese imagen';
+  error.synopsis = synopsis && synopsis.length > 30 ? null : 'Minimo 30 caracteres';
+  error.genres = genres.length > 0 && genres[0] != "Generos" ? null : 'Ingrese genero';
+
+  return error;
+}
 
 export default function CreateForm() {
   const dispatch = useDispatch();
-  const generos = useSelector((state) => state.allMangas);
-  const genres = useSelector(state => state.genres)
   const user = useSelector(state => state.user)
+  const [error, setError] = useState({})
 
   const [input, setInput] = useState({
     title: '',
     synopsis: '',
-    images: [],
-    genres: [],
-  
-
+    image: null,
+    genres: ["Generos"],
   });
 
   function handleChangeFile(e) {
-    console.log(e.target.files)
     setInput({
-        ...input,
-        images: e.target.files[0],
+      ...input,
+      image: e.target.files[0],
     });
-}
+  }
 
-function handleSubmit(e) {
-    //Debe enviar un dispatch para post manga de tipo FormData
+  function handleSubmit(e) {
     e.preventDefault();
+    const { title, synopsis, image, genres } = input;
+    const error = validate(input);
 
-        const {title, synopsis,images,genres} = input;
-    
-    if (title === undefined || title.length < 3) {
-      return alert ('titulo invalido')
-    } else if(synopsis === undefined || synopsis.length < 30) {
-      return alert ('synpsis minima 30 caracteres')
-    } else if (images === undefined) {
-      return alert('ingrese imagen valida')
-    } else if (genres === undefined) {
-      return alert('seleccione genero')
+    if (error.title || error.genres || error.synopsis || error.image) {
+      setError(error);
+      return;
     }
-
 
     const formData = new FormData();
     formData.append('authorId', user.id);
-    formData.append('title', input.title);
-    formData.append('synopsis', input.synopsis);
-    formData.append('genres', input.genres);
+    formData.append('title', title);
+    formData.append('synopsis', synopsis);
+    formData.append('genres', genres);
+    formData.append('images', image);
 
-    formData.append('images', input.images);
-
-    console.log(formData.get('images'));
     dispatch(postManga(formData));
     alert('Manga creada');
     setInput({
-        title: '',
-        synopsis: '',
-        genres: [],
-        images: [],
+      title: '',
+      synopsis: '',
+      genres: ["Generos"],
+      image: null,
     });
-}
+    setError({})
+  }
 
-  function handleChange(e){
-    console.log(e.target.value)
+  function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
-    }); 
-  }
-  
-  function handleSelect(e) {
-    console.log(e.target.value)
-    setInput({
-        ...input,
-        genres: [...input.genres, e.target.value],
-
     });
   }
-  
 
-  
-  useEffect(() =>{
+  function handleSelect(e) {
+    setInput({
+      ...input,
+      genres: [e.target.value],
+    });
+  }
+
+  useEffect(() => {
     dispatch(getAllMangas());
-    dispatch(getGenres())
-  },[dispatch])
+  }, [dispatch])
 
-  return ( 
-    <Fragment>
-    <Navbar/>
+  return (
     <Box
       paddingTop={'2%'}
       sx={{ display: 'flex' }}
       sx={{ mt: '15%' }}
-      sx={{ md: { xs: '20%', md: '40%', lg: '100%' } }}>
+      sx={{ md: { xs: '20%', md: '40%', lg: '100%' } }}
+    >
       <div>
-        <FormControl onSubmit={(e) => handleSubmit(e)}
+        <FormControl
+          onSubmit={(e) => handleSubmit(e)}
           sx={{
-            width: 300,
-            height:'auto',
+            width: 600,
+            height: 'auto',
             borderRadius: '5px',
             backgroundColor: '#192A45',
-            borderColor:'#192A45',
+            borderColor: '#192A45',
             color: '#357DED',
           }}>
           <h1 >CREA TU MANGA</h1>
-          <label>TITLE :</label>
-          <div>
-            <input
-              type="text"
-              value={input.title}
-              name="title"
-            onChange={(e) => handleChange(e)}
+          <Box>
+            <div>
+              <FormControl>
+                <Input
+                  placeholder='TITLE'
+                  sx={{ width: '32rem', justifyContent: 'center', backgroundColor: 'white', p: '0.5rem' }}
+                  type="text"
+                  value={input.title}
+                  name="title"
+                  onChange={(e) => handleChange(e)}
+                />
+                {error.title && <p className='error'>{error.title}</p>}
+              </FormControl>
+            </div>
+          </Box>
 
-            />
-          </div>
-          
-          <Box sx={{ mt: '1rem' }}>
-            <label>IMAGEN :</label>
+          <Box sx={{ mt: '2rem' }}>
             <div>
-                <label htmlFor="contained-button-file">
-                  <Input onChange={(e) => handleChangeFile (e)} sx={{display:'none'}} accept="image/*" id="contained-button-file" multiple type="file" />
-                    <Button onClick={(e) => handleChangeFile (e)} variant="contained" component="span">
-                          Cargar
-                    </Button>
-                      </label>
-                  <Box sx={{ mt: '1rem' }}>
-            <label >SYNOPSIS :</label>
-            <div>
-            <TextField
-          id="filled-multiline-flexible"
-          multiline
-          sx={{ backgroundColor: 'white' }}
-          name="synopsis"
-          value={input.synopsis}
-          onChange={(e) => handleChange(e)}
-          variant="filled"
-        />
-        </div>
-            </Box>
+              <label htmlFor="contained-button-file">
+                <FormControl>
+                  <Button
+                    sx={{ width: '32rem', justifyContent: 'center' }}
+                    variant="contained"
+                    component="span">
+                    <Input
+                      onChange={(e) => handleChangeFile(e)}
+                      sx={{ display: 'none' }}
+                      accept="image/*"
+                      name="images"
+                      id="contained-button-file"
+                      multiple type="file"
+                    />
+                    Cargar Imagen
+                  </Button>
+                </FormControl>
+                {error.image && <p className='error'>{error.image}</p>}
+              </label>
             </div>
           </Box>
-          <Box sx={{ mt: '1rem' }}>
-            <label>GENERO :</label>
+
+          <Box sx={{ mt: '2rem' }}>
             <div>
-                <Select
-                    labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                        sx={{ width: '8rem',height:'1.5em',backgroundColor:'white' }}
-                        value={input.genres}
-                          name='genres'
-                          label="genres"
-                            onChange={(e) => handleSelect(e)}
-                              >
-                      {
-                        genres && genres.map((g, i) => <MenuItem  key={i} value={g}>{g}</MenuItem>)
-                      } 
-  
-                </Select>
+              <TextField
+                placeholder='SYNOPSIS'
+                id="filled-multiline-flexible"
+                multiline
+                sx={{ width: '32rem', justifyContent: 'center', backgroundColor: 'white' }}
+                name="synopsis"
+                value={input.synopsis}
+                onChange={(e) => handleChange(e)}
+                variant="filled"
+              />
+              {error.synopsis && <p className='error'>{error.synopsis}</p>}
             </div>
           </Box>
+
+          <Box sx={{ mt: '2rem' }}>
+            <div>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                sx={{ width: '32rem', justifyContent: 'center', backgroundColor: 'white' }}
+                value={input.genres}
+                name='genres'
+                label="genres"
+                onChange={(e) => handleSelect(e)}>
+                <MenuItem value="Generos">Selecciona una opción</MenuItem>
+                <MenuItem value="Drama">Drama</MenuItem>
+                <MenuItem value="Romance">Romance</MenuItem>
+                <MenuItem value="Adventure">Adventure</MenuItem>
+                <MenuItem value="Comedy">Comedy</MenuItem>
+                <MenuItem value="Fantasy">Fantasy</MenuItem>
+                <MenuItem value="Supernatural">Supernatural</MenuItem>
+                <MenuItem value="Sci-Fi">Sci-Fi</MenuItem>
+                <MenuItem value="Action">Action</MenuItem>
+                <MenuItem value="Slice of Life">Slice of Life</MenuItem>
+                <MenuItem value="Ecchi">Ecchi</MenuItem>
+                <MenuItem value="Sport">Sport</MenuItem>
+                <MenuItem value="Mistery">Mistery</MenuItem>
+              </Select>
+              {error.genres && <p className='error'>{error.genres}</p>}
+            </div>
+          </Box>
+
           <div>
-            <Box sx={{ width: '100%', py: '1rem' }}>
-              <Button onClick={(e) => handleSubmit(e)} size="small"  variant="contained">Crear Manga</Button></Box>
+            {input.genre?.map((genre, i) => <p key={i}>{genre}</p>)}
+          </div>
+
+          <div>
+            <Box sx={{ width: '100%', py: '2rem' }}>
+              <Button
+                sx={{ width: '32rem', justifyContent: 'center' }}
+                onClick={(e) => handleSubmit(e)}
+                variant="contained">
+                Crear Manga
+              </Button>
+            </Box>
             <Box sx={{ width: '100%', py: '0.2rem' }}>
               <NavLink to="/">
-              <Button>Home</Button>
+                <Button>
+                  Home
+                </Button>
               </NavLink>
-              </Box>
+            </Box>
           </div>
         </FormControl>
       </div>
     </Box>
-    </Fragment>
   )
 }
-            
-             
+
+
 

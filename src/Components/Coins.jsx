@@ -214,8 +214,17 @@ export default function Coins() {
             <NavBar />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Box sx={{ mt: "2rem", mb: "1rem", width: "96px" }}>
-                    <Button className=" coinImg" sx={{ borderRadius: "50%" }} onClick={changeImg}>
-                        <img className="animate__heartBeat coinImg" id="coinImg" src={coinImgs[0]} alt="" />
+                    <Button
+                        className=" coinImg"
+                        sx={{ borderRadius: "50%" }}
+                        onClick={changeImg}
+                    >
+                        <img
+                            className="animate__heartBeat coinImg"
+                            id="coinImg"
+                            src={coinImgs[0]}
+                            alt=""
+                        />
                     </Button>
                 </Box>
             </Box>
@@ -229,7 +238,7 @@ export default function Coins() {
                             mb: "1rem",
                         }}
                     >
-                        <Typography variant="h6">Mis monedas: {coins}</Typography>
+                        <Typography sx={{ fontSize: { xs: '1rem' }, pt: { xs: '0.2rem' } }} variant="h6">Mis monedas: {coins}</Typography>
                         <Button variant="contained" onClick={handleClickOpen}>
                             Comprar monedas
                         </Button>
@@ -244,19 +253,15 @@ export default function Coins() {
                             variant="fullWidth"
                             aria-label="full width tabs example"
                         >
-                            <Tab label="Compradas" {...a11yProps(0)} />
-                            <Tab label="Usadas" {...a11yProps(1)} />
-                            {
-                                user.creatorMode === true ?
 
-                                    <Tab label="Cambiadas" {...a11yProps(2)} />
-                                    : null
-                            }
-                            {
-                                user.creatorMode === true ?
-                                    <Tab label="Recibidas" {...a11yProps(3)} />
-                                    : null
-                            }
+                            <Tab sx={{ fontSize: { xs: '0.7rem', md: '1rem' } }} label="Compradas" {...a11yProps(0)} />
+                            <Tab sx={{ fontSize: { xs: '0.7rem', md: '1rem' } }} label="Usadas" {...a11yProps(1)} />
+                            {user.creatorMode === true ? (
+                                <Tab sx={{ fontSize: { xs: '0.7rem', md: '1rem' } }} label="Cambiadas" {...a11yProps(2)} />
+                            ) : null}
+                            {user.creatorMode === true ? (
+                                <Tab sx={{ fontSize: { xs: '0.7rem', md: '1rem' } }} label="Recibidas" {...a11yProps(3)} />
+                            ) : null}
                         </Tabs>
                     </AppBar>
                     <SwipeableViews
@@ -271,27 +276,22 @@ export default function Coins() {
                             <UsedCoins BuyerOrder={BuyerOrder} />
                         </TabPanel>
 
-                        {
-                            user.creatorMode === true ?
-
-                                < TabPanel value={value} index={2} dir={theme.direction}>
-                                    <ExchangeCoins SellOrders={SellOrders} />
-                                </TabPanel>
-                                : null
-                        }
-                        {
-                            user.creatorMode === true ?
-                                < TabPanel value={value} index={3} dir={theme.direction}>
-                                    <GainedCoins SellerOrder={SellerOrder} />
-                                </TabPanel>
-                                : null
-                        }
+                        {user.creatorMode === true ? (
+                            <TabPanel value={value} index={2} dir={theme.direction}>
+                                <ExchangeCoins SellOrders={SellOrders} />
+                            </TabPanel>
+                        ) : null}
+                        {user.creatorMode === true ? (
+                            <TabPanel value={value} index={3} dir={theme.direction}>
+                                <GainedCoins SellerOrder={SellerOrder} />
+                            </TabPanel>
+                        ) : null}
                     </SwipeableViews>
                 </Box>
-            </Box >
+            </Box>
 
             {/* modal */}
-            < div >
+            <div>
                 <Dialog
                     open={open}
                     TransitionComponent={Transition}
@@ -319,51 +319,49 @@ export default function Coins() {
                                             </ListItemAvatar>
                                             <ListItem>
                                                 <ListItemText primary={pack.title} />
-                                                {
-                                                    !bought ?
-                                                        <Button
-                                                            onClick={handleBuy}
-                                                            value={pack.id}
-                                                            variant="contained"
-                                                        >
-                                                            Comprar
-                                                        </Button>
-                                                        : <Button
-                                                            onClick={handleBuy}
-                                                            value={pack.id}
-                                                            disabled
-                                                            variant="contained"
-                                                        >
-                                                            Comprar
-                                                        </Button>
-                                                }
+                                                {!bought ? (
+                                                    <Button
+                                                        onClick={handleBuy}
+                                                        value={pack.id}
+                                                        variant="contained"
+                                                    >
+                                                        Comprar
+                                                    </Button>
+                                                ) : (
+                                                    <Button
+                                                        onClick={handleBuy}
+                                                        value={pack.id}
+                                                        disabled
+                                                        variant="contained"
+                                                    >
+                                                        Comprar
+                                                    </Button>
+                                                )}
                                             </ListItem>
                                         </ListItemButton>
                                     </ListItem>
                                 ))}
-                                {loading ?
-                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                {loading ? (
+                                    <Box sx={{ display: "flex", justifyContent: "center" }}>
                                         <CircularProgress />
                                     </Box>
-                                    : null
-                                }
-                                {buy ?
-                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                ) : null}
+                                {buy ? (
+                                    <Box sx={{ display: "flex", justifyContent: "center" }}>
                                         <Button onClick={(e) => handleCart(e)}>
                                             <Cart data={data2} />
                                         </Button>
                                     </Box>
-
-                                    : null}
+                                ) : null}
                             </List>
                         </DialogContentText>
                     </DialogContent>
                     {/* <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={handleClose}>Agree</Button>
-                    </DialogActions> */}
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={handleClose}>Agree</Button>
+                        </DialogActions> */}
                 </Dialog>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }

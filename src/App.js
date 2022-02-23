@@ -32,18 +32,8 @@ const axios = require("axios");
 function App() {
   const user = useSelector((state) => state.user);
   //YA HAY UN ACTION CREATOR getUser ;)
-  const handleButton = () => {
-    let current = axios.get("https://deploy-back-mangaka-v2.herokuapp.com/api/users/currentUser", {withCredentials: true,});
-    console.log("current");
-    console.log(current);
-    console.log("   ")
-    console.log("user");
-    console.log(user);
-  };
   return (
     <div className="App">
-      <button onClick={() => localStorage.clear()}>Clear</button>
-      <button onClick={handleButton}>Current</button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -55,7 +45,6 @@ function App() {
             <Route path="/library" element={<Biblioteca />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/coins" element={<Coins />} />
-            <Route path="/createChapters/:id" element={<CreateChapters />} />
             <Route path="/detail/:id" element={<Detail />} />
         <Route path="/reader/:id" element={<Reader />} />
             {/*Configuración de Perfil*/}
@@ -70,6 +59,7 @@ function App() {
               <Route path="personalmangas" element={<PersonalMangas />} />
               <Route path="panel" element={<Panel />} />
               <Route path="create" element={<CreateForm />} />
+              <Route path="createChapters/:id" element={<CreateChapters />} />
               <Route path="CheckoutForm/:id" element={<CheckoutForm />} />
             </Route>
             </>
