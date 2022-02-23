@@ -348,7 +348,7 @@ export const getUser = () => {
             });
             const response = request.data;
             console.log(response.data);
-            return dispatch({})
+            // return dispatch({})
             }catch(e){
                 console.log(e)
             }
