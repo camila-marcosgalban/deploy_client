@@ -110,7 +110,7 @@ export default function Coins() {
             console.log(coins.data);
             setCoins(coins.data);
         };
-        // getCoins();
+        getCoins();
     }, [dispatch]);
 
     let packs = useSelector((state) => state.getPacks);
