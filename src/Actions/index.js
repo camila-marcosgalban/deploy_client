@@ -362,7 +362,7 @@ export const getGoogleUser = () => {
             const request = await axios({
                 method: "GET",
                 withCredentials: true,
-                url: LoginGoogle,
+                url: BASE_URL + 'api/auth/google/response',
             });
             console.log(request)
             const response = await request.data;
