@@ -9,6 +9,7 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { getChapter } from '../Actions';
 import NavBar from './Navbar';
+import Comentarios from './Comentarios'
 import './Reader.css'
 
 const _ArrayBufferToBase64 = (buffer) => {
@@ -196,7 +197,7 @@ export default function Reader() {
                                                         <Button id="rightArrow" sx={{ my: { xs: '0.5rem', md: "1rem" }, mx: { xs: '0.5rem', md: "1rem" } }} disabled variant="contained"><ArrowRightIcon /></Button> :
                                                         <Button id="rightArrow" sx={{ my: { xs: '0.5rem', md: "1rem" }, mx: { xs: '0.5rem', md: "1rem" } }} onClick={handleRight} variant="contained"><ArrowRightIcon /></Button>
                                                 }
-                                                <Button sx={{ my: { xs: '0.7rem', md: "0.9rem" }, mr: { xs: '0.5rem', md: "1rem" }, }} onClick={handleLast} variant="contained"><KeyboardDoubleArrowRightIcon /></Button>
+                                                <Button sx={{ my: { xs: '0.5rem', md: "1rem" }, mr: { xs: '0.5rem', md: "1rem" }, }} onClick={handleLast} variant="contained"><KeyboardDoubleArrowRightIcon /></Button>
                                             </Box>
                                             {
                                                 LeftToRight ?
@@ -213,7 +214,9 @@ export default function Reader() {
                     : <p>Cargando...</p>
                 }
             </div >
-
+            <Comentarios
+                marginTop='4rem'
+            />
         </Box >
     );
 }
