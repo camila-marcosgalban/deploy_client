@@ -262,7 +262,7 @@ export let postChapters = (payload) => {
 export let getLibrary = (payload) => {
     return async (dispatch) => {
         try {
-            let mangas = await axios.get(``)
+            let mangas = await axios.get(`${BASE_URL}api/profile/library`, { withCredentials: true })
             return dispatch({
                 type: GET_LIBRARY,
                 payload: mangas.data.data
