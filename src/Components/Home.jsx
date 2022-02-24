@@ -10,7 +10,7 @@ import Paginado from './Paginado'
 import { getAllMangas, popularAuthors, getPopularMangas, getRecentMangas } from '../Actions'
 import { useEffect } from 'react';
 //mui
-import { Container, LinearProgress, Home } from '@mui/material';
+import { Container, LinearProgress, Box } from '@mui/material';
 import Recomendados from './Recomendados';
 
 const Home = () => {
