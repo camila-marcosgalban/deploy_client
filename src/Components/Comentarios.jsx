@@ -52,7 +52,7 @@ export default function Comentarios({ idChapter }) {
 
     const [input, setInput] = useState({
         comment: '',
-        idChapter: ''
+        idChapter: idChapter
     });
 
     useEffect(() => {
