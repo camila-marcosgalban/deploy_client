@@ -10,6 +10,8 @@ import { Container, Box, Button, List, ListItem, Modal, LinearProgress, Divider,
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 // components
 import Nabvar from './Navbar'
 import Score from './Score'
