@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 //import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import InputBase from "@mui/material/InputBase";
 
-import './mangaka.css';
+import './mangaka.css'
 
 //styles
 const Input = styled(InputBase)`
