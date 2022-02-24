@@ -18,7 +18,7 @@ const Paginado = ({ total }) => {
 
     return (
         <div>
-            <Pagination count={total} hidePrevButton hideNextButton page={page} onClick={handlePaginado} sx={{ mx: "auto", width: 300 }} />
+            <Pagination count={total} hidePrevButton hideNextButton page={page} onClick={handlePaginado} sx={{ width: 300, display: 'flex', justifyContent: 'center', mb: '2rem' }} />
         </div>
     )
 }

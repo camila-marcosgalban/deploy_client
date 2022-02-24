@@ -44,7 +44,6 @@ const Home = () => {
                     </Container>
                     :
                     <div>
-                        <Paginado total={allMangas.total} />
                         <Container fixed sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
 
                             {
@@ -65,6 +64,9 @@ const Home = () => {
                                     <LinearProgress sx={{ height: '0.5rem ' }} />
                             }
                         </Container>
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Paginado total={allMangas.total} />
+                        </Box>
                     </div>
 
             }
