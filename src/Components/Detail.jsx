@@ -92,6 +92,17 @@ const Detail = () => {
         dispatch(buyChapters({ sellerId: mangaDetail.authorId, productId: chapId }))
         setTimeout(() => navigate(`/reader/${chapId}`), 1000)
     }
+
+    const [paragraph, setParagraph] = React.useState(false)
+
+    const handleParagraph = (e) => {
+        if (paragraph) {
+            setParagraph(false)
+        } else {
+            setParagraph(true)
+        }
+
+    }
     return (
         <div>
             <Nabvar />
