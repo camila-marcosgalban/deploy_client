@@ -47,7 +47,7 @@ const Favorite = (props) => {
     const handleFav = (e, id) => {
         e.preventDefault()
         fav ? setFav(false) : setFav(true)
-        axios.put(`http://localhost:3001/api/users/user/lists?list=favorites`, { mangaId: id }, { withCredentials: true })
+        axios.put(`https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/lists?list=favorites`, { mangaId: id }, { withCredentials: true })
             .then((data) => {
                 dispatch(removeFavorite(id))
             })
