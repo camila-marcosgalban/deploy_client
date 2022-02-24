@@ -145,9 +145,8 @@ export default function NavBar() {
             mx: "10px",
           }}
         >
-          <Typography variant="h5" color="primary">
-            <Link to="/">MANGAKA</Link>
-          </Typography>
+
+          <Link to="/" style={{ textDecoration: "none", color: "" }}><h1 id="Mangaka">MANGAKA</h1></Link>
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             <Box
               component="form"
