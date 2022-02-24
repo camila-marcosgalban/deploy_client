@@ -239,7 +239,7 @@ const Detail = () => {
                                             user.chapters.includes(chapter.id) || mangaDetail.authorId === user.id || mangaDetail.chapters[0].id === chapter.id ?
                                                 <Link to={'/reader/' + chapter.id}> <Button sx={{ width: { xs: '0.8 rem', md: '1.5rem' }, height: { xs: '1.5rem', md: '2rem' }, fontSize: { xs: '0.7rem', md: '0.8rem' }, background: '#357DED' }}
                                                     variant="contained">Leer</Button></Link> :
-                                                < Button sx={{ width: { xs: '0.8 rem', md: '1.5rem' }, height: { xs: '1.5rem', md: '2rem' }, fontSize: { xs: '0.7rem', md: '0.8rem' }, background: '#357DED' }} value={chapter.id} onClick={handleOpen}>Comprar</Button>
+                                                < Button sx={{ width: { xs: '0.8 rem', md: '1.5rem' }, height: { xs: '1.5rem', md: '2rem' }, fontSize: { xs: '0.7rem', md: '0.8rem' } }} value={chapter.id} onClick={handleOpen}>Comprar</Button>
                                         }
                                     </Box>
 
