@@ -9,6 +9,8 @@ import SendIcon from '@mui/icons-material/Send';
 
 import { createComment, verComentarios } from '../Actions';
 
+import { useNavigate } from 'react-router-dom';
+
 
 const _ArrayBufferToBase64 = (buffer) => {
     //console.log(buffer)
@@ -37,7 +39,7 @@ const style = {
 
 
 export default function Comentarios({ idChapter }) {
-
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
     const { id } = useParams()
@@ -77,13 +79,16 @@ export default function Comentarios({ idChapter }) {
         dispatch(createComment(input))
         setInput({
             comment: '',
-            idChapter: ''
+            idChapter: idChapter
         })
 
     }
 
 
-
+    //commentary 
+    const handleCommentary = () => {
+        setTimeout(() => navigate(`/`), 1000)
+    }
 
     return (
         <div>
@@ -139,6 +144,7 @@ export default function Comentarios({ idChapter }) {
                                 <Box sx={{ display: 'flex', justifyContent: "flex-end" }}>
                                     <Button
                                         type="submit"
+                                        onClick={handleCommentary}
                                     >
                                         <SendIcon color="#5A92ED" fontSize="large" />
                                     </Button>

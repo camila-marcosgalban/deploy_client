@@ -22,7 +22,7 @@ export default function PersonalMangas() {
   const [error, setError] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/profile/mangas", {
+      .get("https://deploy-back-mangaka-v2.herokuapp.com/api/profile/mangas", {
         withCredentials: true,
       })
       .then((res) => {

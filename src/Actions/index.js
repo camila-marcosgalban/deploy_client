@@ -259,19 +259,19 @@ export let postChapters = (payload) => {
     };
 };
 // falta rutas
-// export let getLibrary = (payload) => {
-//     return async (dispatch) => {
-//         try {
-//             let mangas = await axios.get(``)
-//             return dispatch({
-//                 type: GET_LIBRARY,
-//                 payload: mangas.data
-//             })
-//         } catch(error) {
-//             console.log(error)
-//         }
-//     }
-// }
+export let getLibrary = (payload) => {
+    return async (dispatch) => {
+        try {
+            let mangas = await axios.get(``)
+            return dispatch({
+                type: GET_LIBRARY,
+                payload: mangas.data.data
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+}
 
 export let getWishList = (payload) => {
     return async (dispatch) => {

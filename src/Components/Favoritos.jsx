@@ -13,7 +13,7 @@ import { favorite, removeFavorite } from '../Actions'
 
 
 
-import './styleFavoritos.css'
+
 
 const _ArrayBufferToBase64 = (buffer) => {
     //console.log(buffer)
@@ -47,7 +47,7 @@ const Favorite = (props) => {
     const handleFav = (e, id) => {
         e.preventDefault()
         fav ? setFav(false) : setFav(true)
-        axios.put(`https://deploy-back-mangaka-v2.herokuapp.com/api/users/user/lists?list=favorites`, { mangaId: id }, { withCredentials: true })
+        axios.put(`http://localhost:3001/api/users/user/lists?list=favorites`, { mangaId: id }, { withCredentials: true })
             .then((data) => {
                 dispatch(removeFavorite(id))
             })
@@ -74,7 +74,7 @@ const Favorite = (props) => {
                                         <Avatar alt="Remy Sharp" src={'data:image/jpeg;base64,' + _ArrayBufferToBase64(f.image)} variant="square" sx={{ width: "6rem", height: "6rem", mr: "1rem" }} />
                                     </ListItemAvatar>
 
-                                    <ListItemText
+                                    <Link to={'/detail/' + f.id}> <ListItemText
                                         primary={f.title}
 
                                         secondary={
@@ -84,7 +84,7 @@ const Favorite = (props) => {
                                             </React.Fragment>
                                         }
                                     />
-
+                                    </Link>
                                     <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }} key={f.id}>
 
 

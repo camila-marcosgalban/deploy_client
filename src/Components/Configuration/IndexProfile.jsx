@@ -28,7 +28,7 @@ const IndexProfile = () => {
 		if (checked) {
 			axios
 				.put(
-					"http://localhost:3001/api/profile/creator",
+					"https://deploy-back-mangaka-v2.herokuapp.com/api/profile/creator",
 					{ creatorMode: checked },
 					{
 						withCredentials: true,

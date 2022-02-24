@@ -3,6 +3,7 @@ import { Container, Typography, List, ListItem, ListItemAvatar, Avatar, ListItem
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Navbar from './Navbar'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { getWishList } from '../Actions';
 
@@ -45,20 +46,21 @@ const Wishlist = () => {
                     {
                         wishlist.data ? wishlist.data?.map((m, i) => {
                             return (
-                                <ListItem key={i} sx={{ width: '100%', }}>
-                                    <ListItemAvatar>
-                                        <Avatar src={'data:image/jpeg;base64,' + _ArrayBufferToBase64(m.image)} variant="rounded" sx={{ width: 60, height: 60 }} />
-                                    </ListItemAvatar>
-                                    <ListItemText sx={{ mx: '1rem' }}>
-                                        <Typography variant='h5'>{m.title}</Typography>
-                                        <Typography variant='body2'>{m.author.name}</Typography>
-                                        <Typography variant='body2'>{m.genre?.join(', ')}</Typography>
-                                    </ListItemText>
-                                    <IconButton sx={{ mx: '1rem', color: '#fff' }} onClick={e => handleDeleteManga(m.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItem>
-
+                                <Link to={'/detail/' + m.id}>
+                                    <ListItem key={i} sx={{ width: '100%', }}>
+                                        <ListItemAvatar>
+                                            <Avatar src={'data:image/jpeg;base64,' + _ArrayBufferToBase64(m.image)} variant="rounded" sx={{ width: 60, height: 60 }} />
+                                        </ListItemAvatar>
+                                        <ListItemText sx={{ mx: '1rem' }}>
+                                            <Typography variant='h5'>{m.title}</Typography>
+                                            <Typography variant='body2'>{m.author.name}</Typography>
+                                            <Typography variant='body2'>{m.genre?.join(', ')}</Typography>
+                                        </ListItemText>
+                                        <IconButton sx={{ mx: '1rem', color: '#fff' }} onClick={e => handleDeleteManga(m.id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </ListItem>
+                                </Link>
                             )
                         }) :
                             <LinearProgress sx={{ height: '0.5rem ' }} />
